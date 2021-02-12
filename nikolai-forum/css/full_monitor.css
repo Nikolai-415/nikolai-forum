@@ -1,0 +1,22 @@
+@media screen and (min-width: 1280px)
+{
+	#content {
+		max-width: 1024px;
+	}
+
+	#scrollup {
+		right: 50px;
+		top: 50px;
+	}
+	
+	/* ============================================= */
+	/* HEADER */
+	/* ============================================= */
+	
+	#head_text {
+		margin-top: 10px;
+		margin-bottom: 13px;
+	}
+	
+	/* ============================================= */
+}

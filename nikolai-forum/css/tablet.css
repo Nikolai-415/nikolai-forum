@@ -1,0 +1,132 @@
+@media screen and (min-width: 655px)
+{
+	* {
+		font-size: 14px;
+	}
+	
+	#content {
+		width: 90%;
+	}
+
+	#scrollup {
+		right: 20px;
+		top: 20px;
+	}
+	
+	#error_404 {
+		margin: 110px 0;
+		font-size: 25px;
+	}
+	
+	/* ============================================= */
+	/* HEADER */
+	/* ============================================= */
+	
+	#head {
+		margin-top: 5px;
+	}
+	
+	#head_img {
+		width: 65%;
+	}
+	
+	#head_text {
+		margin-top: 6px;
+		margin-bottom: 9px;
+	}
+	
+	.menu_button {
+		border-radius: 4px;
+	}
+	
+	/* ============================================= */
+	/* ARTICLE */
+	/* ============================================= */
+
+	article {
+		margin-top: 4px;
+		border-radius: 4px;
+		padding: 5px;
+	}
+	
+	#article_menu {
+		margin: 8px 0 10px 0;
+	}
+	
+	/* ============================================= */
+	/* FOOTER */
+	/* ============================================= */
+
+	footer {
+		margin-top: 10px;
+	}
+	
+	#copyright {
+		font-size: 12px;
+	}
+	
+	/* ============================================= */
+	/* Таблица пользователей */
+	/* ============================================= */
+	
+	#players_table {
+		margin-bottom: 5px;
+	}
+
+	#players_table tr th:nth-child(3),
+	#players_table tr td:nth-child(3) {
+		display: table-cell;
+	}
+	
+	/* ============================================= */
+	/* Профиль пользователя */
+	/* ============================================= */
+
+	#visitka {
+		width: 200px;
+		float: left;
+	}
+	
+	#avatar {
+		width: 100%;
+	}
+
+	#rightside {
+		width: calc(100% - 225px);
+		margin-left: 215px;
+		min-height: 239px;
+	}
+	
+	/* ============================================= */
+	/* Таблица форумов */
+	/* ============================================= */
+
+	.forum_table tr .forum_table_th_2 {
+		width: 45%;
+	}
+	
+	.forum_table tr .forum_table_th_3,
+	.forum_table tr .forum_table_td_3,
+	.forum_table tr .forum_table_th_4,
+	.forum_table tr .forum_table_td_4 {
+		display: table-cell;
+	}
+
+	.forum_form fieldset table tr td input[type="text"] {
+		max-width: 465px;
+	}
+
+	.forum_form fieldset table tr td textarea {
+		max-width: 465px;
+	}
+	
+	/* ============================================= */
+	/* Таблица с комментариями на странице темы */
+	/* ============================================= */
+
+	.topic_table tr .td_visitka {
+		width: 150px;
+	}
+	
+	/* ============================================= */
+}

@@ -1,0 +1,1013 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Arial", Sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: #ffad1c;
+	font-size: 100%;
+}
+
+.clear {
+	clear: both;
+}
+
+#content {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+body {
+	background-color: #000000;
+	background-image: url("/img/background.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-clip: border-box;
+	background-origin: border-box;
+}
+
+#scrollup {
+	position: fixed;
+	display: none;
+	cursor: pointer;
+}
+
+/* ============================================= */
+/* HEADER */
+/* ============================================= */
+
+#head_text {
+	color: #ffffff;
+}
+
+#menu_bar {
+    text-align: center;
+	float:center;
+	margin: 0 auto;
+}
+
+.menu_button {
+	color: #ffffff;
+	background-image: url("/img/menu/bgmenu_2.png");
+    display: inline-block;
+	padding: 10px 30px;
+	margin: 2px 5px;
+}
+
+.active_menu_button {
+	background-image: url("/img/menu/bgmenu_1.png");
+}
+
+/* ============================================= */
+/* ARTICLE */
+/* ============================================= */
+
+article {
+	width: 100%;
+	background-color: #ffffff;
+}
+
+#article_menu {
+	width: 100%;
+	text-align: center;
+}
+
+.article_menu_button_blue {
+	padding: 4px 10px;
+	background-color: #3333ff;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+	border-radius: 10px;
+	white-space: pre;
+	float: none;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.article_menu_button_red {
+	padding: 4px 10px;
+	background-color: #ff3333;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+	border-radius: 10px;
+	white-space: pre;
+	float: none;
+	cursor: pointer;
+}
+
+/* ============================================= */
+/* FOOTER */
+/* ============================================= */
+
+#vk_link {
+	max-width: 30px;
+	max-height: 30px;
+}
+
+#copyright {
+	color: #ffffff;
+}
+	
+/* ============================================= */
+/* Таблица пользователей */
+/* ============================================= */
+
+#players_table {
+	width: 100%;
+	background-color: #333333;
+	color: #ffffff;
+}
+
+#players_table tr th {
+	padding: 5px;
+	background-color: #000000;
+}
+
+#players_table tr td {
+	background-color: #111111;
+	color: #ffffff;
+	padding: 1px;
+}
+
+#players_table tr td,
+#players_table tr td * {
+	font-size: 12px;
+}
+
+#players_table tr th:nth-child(1) {
+	width: 10%;
+}
+
+#players_table tr th:nth-child(2) {
+	width: 40%;
+}
+
+#players_table tr th:nth-child(3) {
+	width: 30%;
+}
+
+#players_table tr th:nth-child(4) {
+	width: 20%;
+}
+
+#players_table tr td:nth-child(2) {
+	text-align: left;
+	padding: 0 5px;
+}
+
+.status_offline {
+	color: #ff0000;
+}
+
+.status_online {
+	color: #00ff00;
+}
+
+.status_banned {
+	color: #ff0000;
+}
+
+/* ============================================= */
+/* Форма навигации по страницам */
+/* ============================================= */
+
+.navigation {
+	margin-top: 5px;
+	text-align: center;
+	background-color: #000000;
+	color: #ffffff;
+	padding: 5px;
+}
+
+.navigation a {
+	display: inline-block;
+	width: 30px;
+	margin-right: 15px;
+}
+
+.navigation a div {
+	background-color: #222222;
+	padding: 5px;
+	width: 30px;
+	color: #ffffff;
+}
+
+.navigation .total_a div {
+	background-color: #444444;
+}
+
+.navigation form {
+	display: inline-block;
+	margin-top: 5px;
+}
+
+.navigation,
+.navigation a div,
+.navigation form label,
+.navigation form input[type="text"],
+.navigation form input[type="submit"] {
+	font-size: 12px;
+}
+
+.navigation form input[type="text"] {
+	width: 40px;
+	text-align: center;
+}
+
+/* ============================================= */
+/* Профиль пользователя */
+/* ============================================= */
+
+#stats {
+	background-color: #ffffff;
+	width: 100%;
+}
+
+#forum_profile {
+	width: 100%;
+}
+
+#forum_profile_first_row {
+	width: 100%;
+}
+
+#visitka {
+	background-color: #000000;
+	padding: 5px;
+}
+
+#profile_name {
+	margin: auto;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+#status {
+	margin: auto;
+	background-color: #000000;
+}
+
+#avatar {
+	background-size: auto 100%;
+	background-position-x:	center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+#rank {
+	width: 100%;
+	margin: 3px auto;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+#rightside {
+	padding: 5px;
+	background-color: #000000;
+}
+
+#reg_date {
+	margin-bottom: 15px;
+	padding: 3px;
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+}
+
+#last_active_date {
+	margin-bottom: 15px;
+	padding: 3px;
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+}
+
+#groups {
+	margin-bottom: 15px;
+	padding: 3px;
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+}
+
+#groups a {
+	font-size: 100%;
+}
+
+#about {
+	background-color: #000000;
+	text-align: left;
+}
+
+#about_head {
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+}
+
+#about_body {
+	padding: 3px;
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+}
+
+.forum_statistics {
+	width: calc(100% - 2px);
+	margin-top: 5px;
+	background-color: #222222;
+	padding: 1px;
+}
+
+.forum_statistics_head {
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+	margin: 1px;
+}
+
+.forum_statistics_body {
+	width: 100%;
+	text-align: center;
+}
+
+.forum_statistics_block {
+	float: left;
+	width: calc(50% - 2px);
+	margin: 1px;
+}
+
+.forum_statistics_block_head {
+	background-color: #000000;
+	color: #ffffff;
+	display: table;
+	width: 100%;
+	height: 30px;
+}
+
+.forum_statistics_block_head_text {
+	display: table-cell;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.forum_statistics_block_body {
+	background-color: #000000;
+	color: #ffffff;
+	margin-top: 2px;
+}
+
+.forum_statistics_block_body a {
+	font-size: 100%;
+}
+
+/* ============================================= */ 
+/* Таблица с варнами / банами / группами в профиле игрока */
+/* ============================================= */
+
+.profile_extra_info {
+	width: 100%;
+	background-color: #222222;
+	padding: 1px;
+	margin: 0 auto;
+}
+
+.profile_extra_info_head,
+.profile_extra_info_row,
+.profile_extra_info_row_from,
+.profile_extra_info_row_date,
+.profile_extra_info_row_description {
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+	margin: 1px;
+	font-size: 80%;
+}
+
+.profile_extra_info_row_from {
+	width: 20%;
+	padding: 7px 0;
+}
+
+.profile_extra_info_row_date {
+	width: 25%;
+}
+
+.profile_extra_info_row_description {
+	width: 100%;
+}
+
+.profile_extra_info_head {
+	padding: 10px;
+}
+
+.profile_extra_info_head a {
+	font-size: 100%;
+}
+
+.profile_extra_info_row {
+	font-size: 80%;
+	padding: 3px;
+}
+
+.profile_extra_info_row a {
+	font-size: 100%;
+}
+
+/* ============================================= */
+/* Форма регистрации / авторизации */
+/* ============================================= */
+
+.reglog_form {
+	margin: 0 auto;
+	width: 100%;
+}
+
+.reglog_form fieldset {
+	background-color: #000000;
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+.reglog_form fieldset legend {
+	padding: 5px 20px 5px 20px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: solid 1px #000000;
+}
+
+.reglog_form fieldset table {
+	width: 95%;
+	background-color: #444444;
+	margin: 10px auto;
+	border-spacing: 1px;
+}
+
+.reglog_form fieldset table tr td {
+	width: 50%;
+	padding: 5px;
+	background-color: #222222;
+}
+
+.reglog_form fieldset table tr td:first-child {
+	text-align: right;
+}
+
+.reglog_form fieldset table tr td:last-child {
+	text-align: left;
+}
+
+.reglog_form fieldset table tr td[colspan="2"] {
+	text-align: center;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+.reglog_form fieldset table tr td input[type="text"],
+.reglog_form fieldset table tr td input[type="password"] {
+	width: calc(100% - 4px);
+	font-size: 80%;
+}
+
+.reglog_form fieldset table tr td label {
+	color: #ffffff;
+	font-size: 80%;
+}
+
+.reglog_form_errors {
+	margin-bottom: 5px;
+}
+
+.asterisk {
+	color: #ff0000;
+}
+
+.error_text {
+	color: #ff0000;
+	display: block;
+}
+
+.reglog_form input[type="submit"] {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 4px 10px;
+	background-color: #3333ff;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+/* ============================================= */
+/* Таблица форумов */
+/* ============================================= */
+
+#forum {
+	text-align: left;
+	margin: 15px;
+}
+
+.forum_table_forums_names {
+	margin: 0 0 5px 0;
+	padding: 4px 0 0 0;
+	color: #000000;
+	text-align: left;
+	border: solid 2px #000000;
+	background-color: #ffffff;
+}
+
+.forum_table_forums_names div {
+	display:inline-block;
+    text-align: center;
+	float:center;
+	margin: 4px 4px 9px 4px;
+}
+
+.forum_table_forums_names div a {
+	padding: 4px 8px;
+	color: #ffad1c;
+	background-color: #000000;
+	text-decoration: none;
+}
+
+.forum_table_forums_names div .total_select {
+	color: #ffffff;
+}
+
+.forum_table {
+	background-color: #444444;
+	width: 100%;
+}
+
+.forum_table tr th {
+	padding: 4px;
+	background-color: #000000;
+	color: #ffffff;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+	font-size: 80%;
+}
+
+.forum_table_td_icon {
+	background-position-x: center;
+	background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.forum_table_td_icon a div {
+	width: calc(200% - 10px);
+	height: 30px;
+	margin: -5px;
+}
+
+.forum_table_td_icon_forum {
+	background-image: url("/img/forum/icon_forum.png");
+}
+
+.forum_table_td_icon_topic {
+	background-image: url("/img/forum/icon_topic.png");
+}
+
+.forum_table_td_icon_topic_closed {
+	background-image: url("/img/forum/icon_topic_closed.png");
+}
+
+.forum_table tr .forum_table_td_1 {
+	width: 5%;
+	min-width: 20px;
+}
+
+.forum_table tr .forum_table_td_1,
+.forum_table tr .forum_table_td_2 {
+	background-color: #000000;
+}
+
+.forum_table tr .forum_table_td_3,
+.forum_table tr .forum_table_td_4,
+.forum_table tr .forum_table_td_5 {
+	background-color: #222222;
+}
+
+.forum_table tr .forum_table_td_5 {
+	font-size: 80%;
+}
+.forum_table tr .forum_table_td_5 a {
+	font-size: 100%;
+}
+
+.forum_table tr .forum_table_td_1,
+.forum_table tr .forum_table_td_3,
+.forum_table tr .forum_table_td_4,
+.forum_table tr .forum_table_td_5 {
+	text-align: center;
+}
+
+.forum_table tr td {
+	padding: 4px;
+	background-color: #222222;
+	color: #ffffff;
+	text-align: left;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 30px;
+	font-size: 80%;
+}
+
+.forum_table tr td b a {
+	text-decoration: none;
+	color: #ffad1c;
+	font-size: 80%;
+}
+
+.forum_table .category td,
+.forum_table .category_bottom td {
+	padding: 2px;
+	background-color: #000000;
+}
+
+.forum_table .category td {
+	padding: 2px;
+	text-align: center;
+}
+
+.forum_table .category td b a {
+	color: #ffad1c;
+	padding: 2px;
+	font-size: 100%;
+}
+
+.forum_table .category td b .total_select {
+	color: #ffffff;
+}
+
+.forum_form {
+	margin: 0 0 5px 0;
+}
+
+.forum_form fieldset {
+	background-color: #000000;
+	padding: 10px 0;
+}
+
+.forum_form fieldset legend {
+	padding: 5px 20px 5px 20px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: solid 1px #000000;
+}
+
+.forum_form fieldset .settings,
+.forum_form fieldset .permissions {
+	width: 95%;
+	margin: 10px auto;
+	background-color: #444444;
+	border-spacing: 1px;
+}
+
+.forum_form fieldset .settings tr td {
+	width: 50%;
+	padding: 5px;
+	background-color: #222222;
+}
+
+.forum_form fieldset .settings tr td:first-child {
+	text-align: right;
+}
+
+.forum_form fieldset .settings tr td:last-child {
+	text-align: left;
+}
+
+.forum_form fieldset .settings tr td[colspan="2"],
+.forum_form fieldset .settings tr td[colspan="3"] {
+	text-align: center;
+	background-color: #000000;
+}
+
+.forum_form fieldset .settings tr td[colspan="2"] textarea {
+	width: calc(100% - 2px);
+	min-width: calc(100% - 2px);
+	max-width: calc(100% - 2px);
+	resize: vertical;
+}
+
+.forum_form fieldset .settings tr td input[type="text"],
+.forum_form fieldset .settings tr td input[type="date"] {
+	width: calc(100% - 4px);
+	font-size: 80%;
+}
+
+.forum_form fieldset .settings tr td select {
+	width: 100%;
+	font-size: 80%;
+}
+
+.forum_form fieldset .settings tr td select option {
+	font-size: 100%;
+}
+
+.forum_form fieldset .settings tr td textarea {
+	width: calc(100% - 2px);
+	margin-bottom: -3px;
+	resize: vertical;
+	font-size: 80%;
+}
+
+.forum_form fieldset .settings tr td label,
+.forum_form fieldset .permissions tr td label {
+	color: #ffffff;
+	font-size: 80%;
+}
+
+.forum_form fieldset .settings tr td label b i {
+	font-size: 80%;
+}
+
+.forum_form fieldset .permissions tr td {
+	width: 25%;
+	padding: 0px;
+	background-color: #222222;
+	text-align: left;
+}
+
+.forum_form fieldset .permissions tr td:first-child {
+	text-align: right;
+	padding: 0 5px;
+}
+
+.forum_form fieldset .permissions tr td[colspan="4"],
+.forum_form fieldset .permissions tr .center,
+.forum_form fieldset .permissions tr .center:first-child {
+	text-align: center;
+	background-color: #000000;
+	padding: 3px;
+}
+
+.forum_form fieldset .permissions tr td select {
+	width: 100%;
+	font-size: 80%;
+}
+
+.forum_form fieldset .permissions tr td select option {
+	font-size: 100%;
+}
+
+.forum_form fieldset input[type="submit"],
+.forum_form fieldset input[type="button"] {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding: 4px 10px;
+	background-color: #3333ff;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.forum_form fieldset input[type="submit"] {
+	background-color: #3333ff;
+}
+
+.forum_form fieldset input[type="button"] {
+	background-color: #ff3333;
+}
+
+.forum_form fieldset .forum_form_errors {
+	margin-bottom: 5px;
+}
+
+/* ============================================= */
+/* Таблица с иформацией по иконкам снизу форума */
+/* ============================================= */
+
+.info_table {
+	background-color: #444444;
+	width: 100%;
+	margin: 5px auto 0 auto;
+}
+
+.info_table tr td {
+	padding: 4px;
+	background-color: #000000;
+	color: #ffffff;
+	text-align: left;
+	height: 30px;
+	font-size: 80%;
+}
+
+.info_table tr td:nth-child(2n) {
+	width: calc(100% / 3);
+}
+
+.info_table tr td:nth-child(2n + 1) {
+	min-width: 30px;
+	max-width: 30px;
+}
+
+.info_table tr td[colspan="6"] {
+	text-align: center;
+	height: 20px;
+}
+
+/* ============================================= */
+/* Таблица с комментариями на странице темы */
+/* ============================================= */
+
+.topic_table {
+	background-color: #444444;
+	width: 100%;
+	margin: 5px auto 0 auto;
+}
+
+.topic_table tr td {
+	padding: 4px;
+	background-color: #000000;
+	color: #ffffff;
+	text-align: left;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 80%;
+	vertical-align: top;
+}
+
+.topic_table tr .td_visitka {
+	text-align: center;
+	padding: 0px;
+}
+
+.topic_table tr .reg_date_info {
+	vertical-align: middle;
+	height: 30px;
+}
+
+.topic_table tr .reg_date_info .reg_date_text {
+	float: left;
+	margin: 4px 0;
+}
+
+.topic_table tr .reg_date_info .commentary_buttons {
+	float: right;
+}
+
+.topic_table tr td[colspan="2"] {
+	height: 30px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.topic_table tr:first-child td {
+}
+
+.topic_table tr .commentary {
+	padding: 10px;
+	font-size: 90%;
+}
+
+.topic_table tr .commentary_create {
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.topic_opened {
+	color: #00ff00;
+}
+
+.topic_closed {
+	color: #ff0000;
+}
+
+/* ============================================= */ 
+/* Информация о пользователе слева в комментарии */
+/* ============================================= */
+
+.topic_table_commentary_visitka {
+	background-color: #000000;
+	padding: 5px;
+}
+
+.topic_table_commentary_profile_name {
+	margin: auto;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+.topic_table_commentary_status {
+	margin: auto;
+	background-color: #000000;
+}
+
+.topic_table_commentary_avatar {
+	background-size: auto 100%;
+	background-position-x:	center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	min-height: 130px;
+	max-height: 130px;
+}
+
+.topic_table_commentary_rank {
+	width: 100%;
+	margin: 3px auto;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+/* ============================================= */
+/* Форма для добавления комментария к теме */
+/* ============================================= */
+
+.topic_table tr .commentary_create form {
+	width: 100%;
+	text-align: right;
+}
+
+.topic_table tr .commentary_create form textarea {
+	width: calc(100% - 2px);
+	resize: vertical;
+	font-size: 90%;
+}
+
+.topic_table tr .commentary_create form input[type="submit"],
+.topic_table tr .commentary_create form input[type="button"] {
+	margin: 5px auto 0 auto;
+	padding: 4px 10px;
+	background-color: #3333ff;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.topic_table tr .commentary_create form input[type="button"] {
+	background-color: #ff3333;
+}
+
+.topic_table tr .commentary_create form .topic_form_errors {
+	margin: 5px 0;
+	text-align: center;
+}
+
+.topic_table tr .commentary_create form .topic_form_errors font {
+	display: block;
+}
+
+/* ============================================= */
+/* Таблица с информацией о группах на странице управления группами */
+/* ============================================= */
+
+.groups_extra_info {
+	width: 100%;
+	background-color: #222222;
+	padding: 1px;
+	margin: 0 auto;
+}
+
+.groups_extra_info_head,
+.groups_extra_info_row,
+.groups_extra_info_row_rank,
+.groups_extra_info_row_name,
+.groups_extra_info_row_description,
+.groups_extra_info_row_button {
+	background-color: #000000;
+	color: #ffffff;
+	text-align: center;
+	margin: 1px;
+	font-size: 80%;
+}
+
+.groups_extra_info_row_rank {
+	width: 5%;
+	padding: 7px 0;
+}
+
+.groups_extra_info_row_name {
+	width: 20%;
+}
+
+.groups_extra_info_row_description {
+	width: 45%;
+}
+
+.groups_extra_info_row_button {
+	width: 10%;
+}
+
+.groups_extra_info_head {
+	padding: 10px;
+}
+
+.groups_extra_info_row {
+	font-size: 80%;
+	padding: 3px;
+}
+
+/* ============================================= */

@@ -1,0 +1,7 @@
+ErrorDocument 404 /error_404.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.php [NC,L]
+php_flag register_globals off
+php_value register_globals Off
+php_value date.timezone "Europe/Moscow"

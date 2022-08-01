@@ -28,21 +28,11 @@ services:
     image: ${COMPOSE_PROJECT_NAME}/php:1.0.0
     container_name: php
     volumes:
-      - "./php/public:/var/www/html/${COMPOSE_PROJECT_NAME}/public"
-    working_dir: "/var/www/html/${COMPOSE_PROJECT_NAME}/public"
+      - "./php/public:/app"
+    working_dir: "/app"
     networks:
       - inner-network
     depends_on:
       - db
-
-  nginx:
-    image: nginx:1.23.1-alpine
-    container_name: nginx
-    volumes:
-      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
-    networks:
-      - inner-network
     ports:
       - "80:80"
-    depends_on:
-      - php

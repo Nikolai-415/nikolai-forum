@@ -4,10 +4,10 @@
 	$menu_title[2] = "Личный кабинет";
 	$menu_title[3] = "Пользователи";
 	
-	$menu_link[0] = "index.php";
-	$menu_link[1] = "forum.php";
-	$menu_link[2] = "profile.php";
-	$menu_link[3] = "users.php";
+	$menu_link[0] = "index";
+	$menu_link[1] = "forum";
+	$menu_link[2] = "profile";
+	$menu_link[3] = "users";
 ?>
 	</head>
 	<body>

@@ -1738,7 +1738,7 @@
 	}
 		
 	/* Вспомогательная функция для EchoForumsTreeInSelectTag(...). Выводит опции выпадающего списка. */
-	function EchoForumsTreeInSelectTag_EchoOptions($user_id, $selected_id = 0, $forum_id = 0, $space_offset) {
+	function EchoForumsTreeInSelectTag_EchoOptions($user_id, $selected_id = 0, $forum_id = 0, $space_offset = "") {
 		$forums_tree = GetForumsInThisForumAsMass($forum_id, $user_id);
 		
 		if($selected_id == "") // в случае, если запроса POST не было и он пустой
@@ -1771,7 +1771,7 @@
 	}
 	
 	/* Выводит выпадающий список со всеми видимыми для пользователя форумами. */
-	function EchoForumsTreeInSelectTag($user_id, $selected_id = "0", $forum_id, $action, $is_topic = 0) {
+	function EchoForumsTreeInSelectTag($user_id, $selected_id = "0", $forum_id = 0, $action = "view", $is_topic = 0) {
 		echo "<select name=\"forums_tree\" "; if($forum_id == 0 && $action == 'edit' && $is_topic == 0){ echo "disabled"; } echo ">";
 		
 		echo "	<option value=\"0\" "; if($selected_id === "0") echo "selected"; echo ">";

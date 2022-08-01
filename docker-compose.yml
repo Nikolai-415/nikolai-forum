@@ -25,7 +25,9 @@ services:
     build:
       context: ./php-apache
       dockerfile: Dockerfile
-    image: ${COMPOSE_PROJECT_NAME}/php-apache:1.0.0
+      args:
+        - ENVIRONMENT=${ENVIRONMENT:-dev}
+    image: ${COMPOSE_PROJECT_NAME}/php-apache:1.0.0-${ENVIRONMENT:-dev}
     container_name: php-apache
     volumes:
       - "./php-apache/public:/var/www/html"

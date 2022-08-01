@@ -1,5 +1,5 @@
 <?php
-	$path = "/app";
+	$path = "/var/www/html";
 	require $path."/includes/mysql/mysql_connect.php";	
 	
 	require $path."/includes/session/session_start.php";
@@ -10,7 +10,7 @@
 	$user_id = GetSessionId();
 		
 	$profile_id = $user_id;
-	if($_GET['id'] !== null) // если ID пользователя указан
+	if(($_GET['id'] ?? null) !== null) // если ID пользователя указан
 	{
 		$profile_id = $_GET['id'];
 	}

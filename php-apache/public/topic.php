@@ -1,12 +1,12 @@
 <?php
-	$path = "/app";
+	$path = "/var/www/html";
 	require $path."/includes/mysql/mysql_connect.php";
 	
 	require $path."/includes/session/session_start.php";
 	CheckBanAndLogoutIfTrue();
 	
 	$topic_id = 0;
-	if($_GET['id'] !== null)
+	if(($_GET['id'] ?? null) !== null)
 	{
 		$topic_id = $_GET['id'];
 	}

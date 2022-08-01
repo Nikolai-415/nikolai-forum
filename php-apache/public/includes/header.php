@@ -31,7 +31,7 @@
 									$is_active = true;
 								}
 								else if($i == 2){
-									if($_GET['id'] === null || $_GET['id'] == GetSessionId()){
+									if(($_GET['id'] ?? null) === null || ($_GET['id'] ?? null) == GetSessionId()){
 										$is_active = true;
 									}
 								}

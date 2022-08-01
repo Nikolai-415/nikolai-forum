@@ -1,16 +1,16 @@
 <?php
-	$path = "/app";
+	$path = "/var/www/html";
 	require $path."/includes/mysql/mysql_connect.php";
 	
 	require $path."/includes/session/session_start.php";
 	CheckBanAndLogoutIfTrue();
 		
-	$action = $_GET['action'];
+	$action = $_GET['action'] ?? null;
 	
 	$records_on_page = 30;
 	
 	$page_number = 1;
-	if($_GET['page'] !== null)
+	if(($_GET['page'] ?? null) !== null)
 	{
 		$page_number = $_GET['page'];
 		if($page_number < 0){
@@ -224,7 +224,7 @@
 							
 							$stmt = $mysqli->prepare("SELECT * FROM users WHERE (id >= 1) LIMIT ? OFFSET ?");
 							$stmt->bind_param("ii", $records_on_page, $offset);
-							if($action == 'search' || $_POST['button']) {
+							if($action == 'search' || ($_POST['button'] ?? false)) {
 								$stmt = $mysqli->prepare("SELECT * FROM users $where ORDER BY id LIMIT ? OFFSET ?");
 								$stmt->bind_param("sii", $nick_contains, $records_on_page, $offset);
 							}

@@ -1,5 +1,5 @@
 <?php
-    $path = "/app";
+    $path = "/var/www/html";
 	require $path."/includes/mysql/mysql_connect.php";
 	
 	require $path."/includes/session/session_start.php";
@@ -33,7 +33,7 @@
 									<label for="nick">Ник <span class="asterisk">*</span>:</label>
 								</td>
 								<td>
-									<input type="text" size="32" maxlength="32" name="nick" id="nick" value="<?php echo $_POST['nick']; ?>">
+									<input type="text" size="32" maxlength="32" name="nick" id="nick" value="<?php echo $_POST['nick'] ?? ""; ?>">
 								</td>
 							</tr>
 							<tr>
@@ -41,14 +41,14 @@
 									<label for="password">Пароль <span class="asterisk">*</span>:</label>
 								</td>
 								<td>
-									<input type="password" size="32" maxlength="32" name="password" id="password" value="<?php echo $_POST['password']; ?>">
+									<input type="password" size="32" maxlength="32" name="password" id="password" value="<?php echo $_POST['password'] ?? ""; ?>">
 								</td>
 							</tr>
 						</table>
 						
 						<div class="reglog_form_errors">
 						<?php
-							if ($_POST['button'] !== null){
+							if (($_POST['button'] ?? null) !== null){
 								$nick = $_POST['nick'];
 								$password = $_POST['password'];
 								$mdPassword = md5($password);

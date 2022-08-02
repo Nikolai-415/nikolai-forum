@@ -42,7 +42,7 @@
 		$title = "Профиль пользователя ".$row["nick"];
 	}
 	
-	$action = $_GET['action'];
+	$action = $_GET['action'] ?? null;
 	if($action === null)
 	{
 		$action = 'view';
@@ -113,7 +113,7 @@
 		
 	$errors_number = 0;
 	
-	if($_POST['button_submit_edit'] !== null)
+	if(($_POST['button_submit_edit'] ?? null) !== null)
 	{
 		if($user_permissions_to_this_user['can_edit_user'] == 0)
 		{
@@ -125,7 +125,7 @@
 			if($_POST['nick'] === null)  {
 				$errors_text[$errors_number++] = "Введите ник!";
 			}
-			else if ($_POST['nick'] != 'Niko' && (!preg_match("/^[a-zA-Z0-9_-]{5,32}$/", $_POST['nick'])) && ($_POST['nick'] !== null)) {
+			else if ($_POST['nick'] != 'Niko' && (!preg_match("/^[a-zA-Z\d_-]{5,32}$/", $_POST['nick'])) && ($_POST['nick'] !== null)) {
 				$errors_text[$errors_number++] = "Введённый ник не подходит! Только латинские буквы, цифры и символы _ и -, длина ника: 5-32 символа.";
 			}
 			else
@@ -145,7 +145,7 @@
 			}
 		}
 	}
-	else if($_POST['button_submit_warn'] !== null)
+	else if(($_POST['button_submit_warn'] ?? null) !== null)
 	{
 		if($user_permissions_to_this_user['can_warn_user'] == 0)
 		{
@@ -174,7 +174,7 @@
 			}
 		}
 	}
-	else if($_POST['button_submit_ban'] !== null)
+	else if(($_POST['button_submit_ban'] ?? null) !== null)
 	{
 		if($user_permissions_to_this_user['can_ban_user'] == 0)
 		{
@@ -295,7 +295,7 @@
 			{
 				$was_error = 0;
 				
-				$stmt = $mysqli->prepare("SELECT id, name, rank FROM groups WHERE id >= 1 AND id != 3 ORDER BY rank;");
+				$stmt = $mysqli->prepare("SELECT id, name, `rank` FROM `groups` WHERE id >= 1 AND id != 3 ORDER BY `rank`;");
 				$stmt->execute();
 				$result_set = $stmt->get_result();
 				while($row = $result_set->fetch_assoc())
@@ -483,15 +483,15 @@
 							{
 								if($action == 'edit-profile')
 								{
-									if($_POST['nick'] === null)
+									if(($_POST['nick'] ?? null) === null)
 									{
 										$_POST['nick'] = $profile_nick;
 									}
-									if($_POST['profile-about'] === null)
+									if(($_POST['profile-about'] ?? null) === null)
 									{
 										$_POST['profile-about'] = $about;
 									}
-									if($_POST['avatar-link'] === null)
+									if(($_POST['avatar-link'] ?? null)=== null)
 									{
 										if($avatar_link != "/img/profile_no_avatar.png")
 										{
@@ -527,7 +527,7 @@
 																</label>
 															</td>
 															<td>
-																<input type=\"text\" maxlength=\"1023\" name=\"avatar-link\" id=\"avatar-link\" value=\"".$_POST['avatar-link']."\">
+																<input type=\"text\" maxlength=\"1023\" name=\"avatar-link\" id=\"avatar-link\" value=\"".($_POST['avatar-link'] ?? "")."\">
 															</td>
 														</tr>
 														<tr>
@@ -544,7 +544,7 @@
 								";
 								
 								
-								if(sizeof($errors_text) > 0)
+								if(sizeof($errors_text ?? array()) > 0)
 								{
 									echo "<div class=\"forum_form_errors\">";
 										
@@ -1202,7 +1202,7 @@
 													</tr>
 									";
 								
-									$stmt = $mysqli->prepare("SELECT id, name, rank FROM groups WHERE id >= 1 AND id != 3 ORDER BY rank;");
+									$stmt = $mysqli->prepare("SELECT id, name, `rank` FROM `groups` WHERE id >= 1 AND id != 3 ORDER BY `rank`;");
 									$stmt->execute();
 									$result_set = $stmt->get_result();
 									while($row = $result_set->fetch_assoc())
@@ -1277,11 +1277,11 @@
 								";
 								
 								$stmt = $mysqli->prepare("
-									SELECT groups.name FROM users_to_groups, groups
+									SELECT `groups`.name FROM users_to_groups, `groups`
 									WHERE
 										(users_to_groups.user_id = ?) AND 
-										(users_to_groups.group_id = groups.id)
-									ORDER BY rank;
+										(users_to_groups.group_id = `groups`.id)
+									ORDER BY `rank`;
 								");
 								$stmt->bind_param("i", $profile_id);
 								$stmt->execute();

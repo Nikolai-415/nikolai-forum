@@ -156,11 +156,11 @@
 		global $mysqli;	
 		
 		$stmt = $mysqli->prepare("
-			SELECT groups.rank
-			FROM groups, users_to_groups
+			SELECT `groups`.rank
+			FROM `groups`, users_to_groups
 			WHERE (users_to_groups.user_id = ?)
-			AND (users_to_groups.group_id = groups.id)
-			ORDER BY groups.rank;
+			AND (users_to_groups.group_id = `groups`.id)
+			ORDER BY `groups`.rank;
 		");
 		$stmt->bind_param("i", $user_id);
 		$stmt->execute();
@@ -348,7 +348,7 @@
 		
 		$stmt = $mysqli->prepare("
 			SELECT user_from_id
-			FROM groups
+			FROM `groups`
 			WHERE id = ?;
 		");
 		$stmt->bind_param("i", $group_id);
@@ -447,11 +447,11 @@
 		
 		if($user_id == null) // если вход в аккаунт не выполнен - группа является группой guests (гости) (id = 2)
 		{
-			$stmt = $mysqli->prepare("SELECT groups.* FROM users_to_groups, groups WHERE (users_to_groups.user_id = 3) AND (users_to_groups.group_id = groups.id) ORDER BY groups.rank;"); // выборка по группам отсортирована по рангам
+			$stmt = $mysqli->prepare("SELECT `groups`.* FROM users_to_groups, `groups` WHERE (users_to_groups.user_id = 3) AND (users_to_groups.group_id = `groups`.id) ORDER BY `groups`.rank;"); // выборка по группам отсортирована по рангам
 		}
 		else
 		{
-			$stmt = $mysqli->prepare("SELECT groups.* FROM users_to_groups, groups WHERE (users_to_groups.user_id = ?) AND (users_to_groups.group_id = groups.id) ORDER BY groups.rank;"); // выборка по группам отсортирована по рангам
+			$stmt = $mysqli->prepare("SELECT `groups`.* FROM users_to_groups, `groups` WHERE (users_to_groups.user_id = ?) AND (users_to_groups.group_id = `groups`.id) ORDER BY `groups`.rank;"); // выборка по группам отсортирована по рангам
 			$stmt->bind_param("i", $user_id);
 		}
 		$stmt->execute();
@@ -551,7 +551,7 @@
 		}
 		else
 		{
-			$stmt = $mysqli->prepare("SELECT groups_permissions_to_forums.* FROM users_to_groups, groups_permissions_to_forums, groups WHERE (users_to_groups.user_id = ?) AND (users_to_groups.group_id = groups_permissions_to_forums.group_id) AND (groups_permissions_to_forums.forum_id = ?) AND (users_to_groups.group_id = groups.id) ORDER BY groups.rank;");
+			$stmt = $mysqli->prepare("SELECT groups_permissions_to_forums.* FROM users_to_groups, groups_permissions_to_forums, `groups` WHERE (users_to_groups.user_id = ?) AND (users_to_groups.group_id = groups_permissions_to_forums.group_id) AND (groups_permissions_to_forums.forum_id = ?) AND (users_to_groups.group_id = `groups`.id) ORDER BY `groups`.rank;");
 			$stmt->bind_param("ii", $user_id, $forum_id);
 		}
 		$stmt->execute();
@@ -1791,7 +1791,7 @@
 		
 		$user_max_group_rank = GetUserMaxGroupRank($user_id);
 		
-		$stmt = $mysqli->prepare("SELECT id, name, rank FROM groups WHERE id >= 1 ORDER BY rank;");
+		$stmt = $mysqli->prepare("SELECT id, name, `rank` FROM `groups` WHERE id >= 1 ORDER BY `rank`;");
 		$stmt->execute();
 		$result_set = $stmt->get_result();
 		
@@ -1911,7 +1911,7 @@
 		$user_max_group_rank = GetUserMaxGroupRank($user_id);
 		$user_permissions = GetUserPermissions($user_id);
 		
-		$stmt = $mysqli->prepare("SELECT id, name, rank FROM groups WHERE id >= 1 ORDER BY rank;");
+		$stmt = $mysqli->prepare("SELECT id, name, `rank` FROM `groups` WHERE id >= 1 ORDER BY `rank`;");
 		$stmt->execute();
 		$result_set = $stmt->get_result();
 		

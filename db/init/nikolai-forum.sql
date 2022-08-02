@@ -83,7 +83,9 @@ CREATE TABLE `forums`  (
 -- ----------------------------
 -- Records of forums
 -- ----------------------------
-INSERT INTO `forums` VALUES (0, 'Главный форум', 'Нет описания', NULL, 0, 0, 1);
+-- Так как MySQL всё равно присваивает id = 1, даже если указать 0, то создаём с id = 1, а затем обновляем его на 0
+INSERT INTO `forums` VALUES (1, 'Главный форум', 'Нет описания', NULL, 0, 0, 1);
+UPDATE `forums` SET id = 0 WHERE id = 1;
 
 -- ----------------------------
 -- Table structure for groups

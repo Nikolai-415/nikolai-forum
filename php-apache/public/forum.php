@@ -32,7 +32,7 @@
 		exit;
 	}
 	
-	$action = $_GET['action'];
+	$action = $_GET['action'] ?? null;
 	$errors_text = array(); // название каждой ошибки
 	$errors_number = 0;
 	if($action === null) // если запрос пустой
@@ -99,7 +99,7 @@
 					
 					$was_error = 0;
 					
-					$stmt = $mysqli->prepare("SELECT id, rank FROM groups ORDER BY rank;");
+					$stmt = $mysqli->prepare("SELECT id, `rank` FROM `groups` ORDER BY `rank`;");
 					$stmt->execute();
 					$result_set = $stmt->get_result();
 					
@@ -281,7 +281,7 @@
 				$_POST['forum_tree'] = "".$row['forum_id'];
 			}
 				
-			$stmt = $mysqli->prepare("SELECT id FROM groups WHERE id >= 1 ORDER BY rank;");
+			$stmt = $mysqli->prepare("SELECT id FROM `groups` WHERE id >= 1 ORDER BY `rank`;");
 			$stmt->execute();
 			$result_set = $stmt->get_result();
 			
@@ -371,7 +371,7 @@
 					{
 						$was_error = 0;
 						
-						$stmt = $mysqli->prepare("SELECT id, rank FROM groups ORDER BY rank;");
+						$stmt = $mysqli->prepare("SELECT id, `rank` FROM `groups` ORDER BY `rank`;");
 						$stmt->execute();
 						$result_set = $stmt->get_result();
 						

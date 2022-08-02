@@ -60,7 +60,7 @@
 		echo EchoTotalLink();
 		echo EchoLastLinks();
 		
-		if($_GET['page'.$extra_page_name_text] === null){
+		if(($_GET['page'.$extra_page_name_text] ?? null) === null){
 			$_GET['page'.$extra_page_name_text] = 1;
 		}
 		echo "

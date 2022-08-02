@@ -63,7 +63,7 @@
 						$_POST['group-rank'] = 1000;
 					}
 					
-					$stmt = $mysqli->prepare("SELECT id FROM groups WHERE (rank = ?);");
+					$stmt = $mysqli->prepare("SELECT id FROM `groups` WHERE (`rank` = ?);");
 					$stmt->bind_param("i", $_POST['group-rank']);
 					$stmt->execute();
 					$result_set = $stmt->get_result();
@@ -75,7 +75,7 @@
 					}
 					else
 					{
-						$stmt = $mysqli->prepare("INSERT INTO groups(name, description, rank, user_from_id) VALUES(?, ?, ?, ?);");
+						$stmt = $mysqli->prepare("INSERT INTO `groups`(name, description, `rank`, user_from_id) VALUES(?, ?, ?, ?);");
 						$stmt->bind_param("ssii", $_POST['group-name'], $_POST['group-description'], $_POST['group-rank'], $user_id);
 
 						if($stmt->execute()) // если группа успешно создана
@@ -103,7 +103,7 @@
 		}
 		else
 		{
-			$stmt = $mysqli->prepare("SELECT name, description, rank FROM groups WHERE (id = ?);");
+			$stmt = $mysqli->prepare("SELECT name, description, `rank` FROM `groups` WHERE (id = ?);");
 			$stmt->bind_param("i", $group_id);
 			$stmt->execute();
 			$result_set = $stmt->get_result();
@@ -165,7 +165,7 @@
 									$_POST['group-rank'] = 1000;
 								}
 								
-								$stmt = $mysqli->prepare("SELECT id FROM groups WHERE (rank = ?) AND (id != ?);");
+								$stmt = $mysqli->prepare("SELECT id FROM `groups` WHERE (`rank` = ?) AND (id != ?);");
 								$stmt->bind_param("ii", $_POST['group-rank'], $group_id);
 								$stmt->execute();
 								$result_set = $stmt->get_result();
@@ -177,7 +177,7 @@
 								}
 								else
 								{
-									$stmt = $mysqli->prepare("UPDATE groups SET name = ?, description = ?, rank = ? WHERE id = ?;");
+									$stmt = $mysqli->prepare("UPDATE `groups` SET name = ?, description = ?, `rank` = ? WHERE id = ?;");
 									$stmt->bind_param("ssii", $_POST['group-name'], $_POST['group-description'], $_POST['group-rank'], $group_id);
 
 									if($stmt->execute()) // если группа успешно изменена
@@ -212,7 +212,7 @@
 						$title = "Удаление группы ".$group_name;
 						if($_POST['button_submit'] !== null)
 						{
-							$stmt = $mysqli->prepare("DELETE FROM groups WHERE (id = ?);");
+							$stmt = $mysqli->prepare("DELETE FROM `groups` WHERE (id = ?);");
 							$stmt->bind_param("i", $group_id);
 
 							if($stmt->execute()) // если группа успешно удалена
@@ -238,7 +238,7 @@
 		
 		$user_permissions = GetUserPermissions($user_id);
 		
-		$stmt = $mysqli->prepare("SELECT id, rank FROM groups WHERE id >= 1 ORDER BY rank;");
+		$stmt = $mysqli->prepare("SELECT id, `rank` FROM `groups` WHERE id >= 1 ORDER BY `rank`;");
 		$stmt->execute();
 		$result_set = $stmt->get_result();
 		
@@ -264,7 +264,7 @@
 				{		
 					$group_id = $groups_ids[$i2];
 					
-					$stmt = $mysqli->prepare("SELECT * FROM groups WHERE (id = ?);");
+					$stmt = $mysqli->prepare("SELECT * FROM `groups` WHERE (id = ?);");
 					$stmt->bind_param("i", $group_id);
 					$stmt->execute();
 					$result_set = $stmt->get_result();
@@ -294,7 +294,7 @@
 		{			
 			$was_error = 0;
 			
-			$stmt = $mysqli->prepare("SELECT id, rank FROM groups WHERE id >= 1 ORDER BY rank;");
+			$stmt = $mysqli->prepare("SELECT id, `rank` FROM `groups` WHERE id >= 1 ORDER BY `rank`;");
 			$stmt->execute();
 			$result_set = $stmt->get_result();
 			
@@ -355,7 +355,7 @@
 				
 				// изменение прав к форуму в таблице groups_permissions_to_forums
 				$stmt = $mysqli->prepare("
-					UPDATE groups SET 
+					UPDATE `groups` SET 
 						can_warn_users_in_lower_groups = ?, 
 						can_unwarn_warns_from_him = ?, 
 						can_unwarn_warns_from_users_in_lower_groups = ?, 
@@ -475,7 +475,7 @@
 							
 							if($action == 'delete')
 							{
-								$stmt = $mysqli->prepare("SELECT name FROM groups WHERE id = ?;");
+								$stmt = $mysqli->prepare("SELECT name FROM `groups` WHERE id = ?;");
 								$stmt->bind_param("i", $group_id);
 								$stmt->execute();
 								$result_set = $stmt->get_result();
@@ -585,9 +585,9 @@
 						";
 						
 						$stmt = $mysqli->prepare("
-							SELECT id, name, description, rank FROM groups
+							SELECT id, name, description, `rank` FROM `groups`
 							WHERE id >= 0 
-							ORDER BY rank;
+							ORDER BY `rank`;
 						");
 						$stmt->execute();
 						$result_set = $stmt->get_result();

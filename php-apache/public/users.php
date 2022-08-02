@@ -8,16 +8,12 @@
 	$action = $_GET['action'] ?? null;
 	
 	$records_on_page = 30;
-	
-	$page_number = 1;
-	if(($_GET['page'] ?? null) !== null)
-	{
-		$page_number = $_GET['page'];
-		if($page_number < 0){
-			header ('Location: /users');
-			exit;
-		}
-	}
+
+    $page_number = $_GET['page'] ?? 1;
+    if($page_number <= 0){
+        header ('Location: /users');
+        exit;
+    }
 	
 	$url_with_page = "/users?page=".$page_number;
 	
@@ -30,7 +26,7 @@
 	{
 		$url_for_page_navigation = "/users";
 		$is_first = 1;
-		if($_GET['button_update'] !== null){
+		if(($_GET['button_update'] ?? null) !== null){
 			foreach ($_GET as $key => $val)
 			{
 				if ($val != '' && $key != 'page') {
@@ -55,10 +51,10 @@
 	}
 							
 	if($action == 'search') {
-		$nick_contains = "%".$_GET['nick_contains']."%";
+		$nick_contains = "%".($_GET['nick_contains'] ?? "")."%";
 		$where = "WHERE (id >= 1) AND (nick LIKE ?)";
 
-		$stmt = $mysqli->prepare("SELECT id, name, rank FROM groups WHERE id >= 1 AND id != 3 ORDER BY rank;");
+		$stmt = $mysqli->prepare("SELECT id, name, `rank` FROM `groups` WHERE id >= 1 AND id != 3 ORDER BY `rank`;");
 		$stmt->execute();
 		$result_set = $stmt->get_result();
 		$is_first = 1;
@@ -66,7 +62,7 @@
 		{
 			$name = "is_attached_to_group_".$row['id'];
 			
-			if($_GET[$name] == 'on') {
+			if(($_GET[$name] ?? null) === 'on') {
 				$where .= " AND (id IN (SELECT user_id FROM users_to_groups WHERE (group_id = ".$row['id'].")))";
 			}
 		}
@@ -79,22 +75,24 @@
 	$stmt->execute();
 	$result_set = $stmt->get_result();
 	if($row = $result_set->fetch_assoc()){ $records_num = $row["count"]; };
-	$pages_num = ceil($records_num / $records_on_page);
-	if($page_number > $pages_num)
-	{
-		header ('Location: '.$url_for_page_navigation.$pages_num);
-		exit;
-	}
-	if($page_number < 1 && $action == 'search' && $pages_num > 0)
-	{
-		header ('Location: '.$url_for_page_navigation."1");
-		exit;
-	}
-	if($page_number < 1 && $action != 'search' && $_GET['button'] === null && $pages_num > 0)
-	{
-		header ('Location: /users?page=1');
-		exit;
-	}
+    $pages_num = ceil($records_num / $records_on_page);
+    if ($pages_num != 0) {
+        if($page_number > $pages_num)
+        {
+            header ('Location: '.$url_for_page_navigation.$pages_num);
+            exit;
+        }
+        if($page_number < 1 && $action == 'search' && $pages_num > 0)
+        {
+            header ('Location: '.$url_for_page_navigation."1");
+            exit;
+        }
+        if($page_number < 1 && $action != 'search' && $_GET['button'] === null && $pages_num > 0)
+        {
+            header ('Location: /users?page=1');
+            exit;
+        }
+    }
 	
 	$title = "Пользователи";
 	include_once $path."/includes/head.php";
@@ -147,7 +145,7 @@
 													</label>
 												</td>
 												<td>
-													<input type=\"text\" size=\"32\" maxlength=\"63\" name=\"nick_contains\" id=\"nick_contains\" value=\"".$_GET['nick_contains']."\">
+													<input type=\"text\" size=\"32\" maxlength=\"63\" name=\"nick_contains\" id=\"nick_contains\" value=\"".($_GET['nick_contains'] ?? "")."\">
 												</td>
 											</tr>
 										</table>
@@ -161,7 +159,7 @@
 											</tr>
 							";
 						
-							$stmt = $mysqli->prepare("SELECT id, name, rank FROM groups WHERE id >= 1 AND id != 3 ORDER BY rank;");
+							$stmt = $mysqli->prepare("SELECT id, name, `rank` FROM `groups` WHERE id >= 1 AND id != 3 ORDER BY `rank`;");
 							$stmt->execute();
 							$result_set = $stmt->get_result();
 							while($row = $result_set->fetch_assoc())
@@ -176,7 +174,7 @@
 													</label>
 												</td>
 												<td>
-													<input type=\"checkbox\" name=\"$name\" id=\"$name\""; if($_GET[$name] == 'on'){ echo " checked"; } echo ">
+													<input type=\"checkbox\" name=\"$name\" id=\"$name\""; if(($_GET[$name] ?? null) == 'on'){ echo " checked"; } echo ">
 												</td>
 											</tr>
 								";
@@ -186,7 +184,7 @@
 							";
 							
 									
-							if(sizeof($errors_text) > 0)
+							if(sizeof($errors_text ?? array()) > 0)
 							{
 								echo "<div class=\"forum_form_errors\">";
 									
@@ -221,7 +219,7 @@
 						
 						<?php
 							$offset = ($page_number - 1) * $records_on_page;
-							
+
 							$stmt = $mysqli->prepare("SELECT * FROM users WHERE (id >= 1) LIMIT ? OFFSET ?");
 							$stmt->bind_param("ii", $records_on_page, $offset);
 							if($action == 'search' || ($_POST['button'] ?? false)) {

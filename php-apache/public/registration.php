@@ -30,7 +30,7 @@
 									<label for="nick">Ник <span class="asterisk">*</span>:</label>
 								</td>
 								<td>
-									<input type="text" size="32" maxlength="32" name="nick" id="nick" value="<?php echo $_POST['nick']; ?>">
+									<input type="text" size="32" maxlength="32" name="nick" id="nick" value="<?php echo $_POST['nick'] ?? ""; ?>">
 								</td>
 							</tr>
 							<tr>
@@ -38,7 +38,7 @@
 									<label for="password">Пароль <span class="asterisk">*</span>:</label>
 								</td>
 								<td>
-									<input type="password" size="32" maxlength="32" name="password" id="password" value="<?php echo $_POST['password']; ?>">
+									<input type="password" size="32" maxlength="32" name="password" id="password" value="<?php echo $_POST['password'] ?? ""; ?>">
 								</td>
 							</tr>
 							<tr>
@@ -46,14 +46,14 @@
 									<label for="password2">Подтверждение пароля <span class="asterisk">*</span>:</label>
 								</td>
 								<td>
-									<input type="password" size="32" maxlength="32" name="password2" id="password2" value="<?php echo $_POST['psssword2']; ?>">
+									<input type="password" size="32" maxlength="32" name="password2" id="password2" value="<?php echo $_POST['password2'] ?? ""; ?>">
 								</td>
 							</tr>
 						</table>
 						
 						<div class="reglog_form_errors">
 						<?php
-							if ($_POST['button'] !== null){
+							if (($_POST['button'] ?? null) !== null){
 								$nick = $_POST['nick'];
 								$password = $_POST['password'];
 								$password_md5 = md5($password);
@@ -69,7 +69,7 @@
 									$errors_text[0] = "Введите ник!";
 									$was_any_error = 1;
 								}
-								if ((!preg_match("/^[a-zA-Z0-9_-]{5,32}$/", $nick)) && (!empty($nick))) {
+								if ((!preg_match("/^[a-zA-Z\d_-]{5,32}$/", $nick)) && (!empty($nick))) {
 									$errors_status[1] = 1;
 									$errors_text[1] = "Введённый ник не подходит! Только латинские буквы, цифры и символы _ и -, длина ника: 5-32 символа.";
 									$was_any_error = 1;
@@ -79,7 +79,7 @@
 									$errors_text[2] = "Введите пароль!";
 									$was_any_error = 1;
 								}
-								if ((!preg_match("/^[a-zA-Z0-9_@!#$%^&*)(]{8,32}$/", $password)) && (!empty($password))) {
+								if ((!preg_match("/^[a-zA-Z\d_@!#$%^&*)(]{8,32}$/", $password)) && (!empty($password))) {
 									$errors_status[3] = 1;
 									$errors_text[3] = "Введённый пароль не подходит! Длина пароля: 8-32 символа. Пароль может содержать только латинские буквы, цифры и следующие символы: @, !, #, $, %, ^, &, *, ), (, -, _, =, +.";
 									$was_any_error = 1;

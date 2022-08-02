@@ -18,5 +18,5 @@
 		<title>
 			<?php echo $title." - ".$site_name; ?>
 		</title>
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="/js/scrollup.js"></script>

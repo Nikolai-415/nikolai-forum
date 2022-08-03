@@ -291,7 +291,7 @@
 		}
 		else
 		{
-			if($_POST['button_update_groups'] !== null)
+			if(($_POST['button_update_groups'] ?? null) !== null)
 			{
 				$was_error = 0;
 				
@@ -1249,7 +1249,7 @@
 									";
 									
 											
-									if(sizeof($errors_text) > 0)
+									if(sizeof($errors_text ?? array()) > 0)
 									{
 										echo "<div class=\"forum_form_errors\">";
 											

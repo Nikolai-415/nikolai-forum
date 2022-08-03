@@ -882,17 +882,17 @@
 			}	
 			
 			$set_permission_to_true = 0;	
-			if(($topic_permissions['can_edit_commentaries_from_him_from_him'] == 1) &&
+			if((($topic_permissions['can_edit_commentaries_from_him_from_him'] ?? 0) == 1) &&
 			($is_user_and_user_from_same))
 			{
 				$set_permission_to_true = 1;
 			}
-			if(($topic_permissions['can_edit_commentaries_from_users_in_lower_groups'] == 1) &&
+			if((($topic_permissions['can_edit_commentaries_from_users_in_lower_groups'] ?? 0) == 1) &&
 			($is_user_rank_better_than_user_from_rank))
 			{		
 				$set_permission_to_true = 1;
 			}
-			if(($topic_permissions['can_edit_commentaries_from_users_in_groups_with_same_rank'] == 1) &&
+			if((($topic_permissions['can_edit_commentaries_from_users_in_groups_with_same_rank'] ?? 0) == 1) &&
 			($is_user_rank_equally_user_from_rank))
 			{			
 				$set_permission_to_true = 1;
@@ -906,17 +906,17 @@
 			}
 			
 			$set_permission_to_true = 0;			
-			if(($topic_permissions['can_delete_commentaries_from_him'] == 1) &&
+			if((($topic_permissions['can_delete_commentaries_from_him'] ?? 0) == 1) &&
 			($is_user_and_user_from_same))
 			{
 				$set_permission_to_true = 1;
 			}
-			if(($topic_permissions['can_delete_commentaries_from_users_in_lower_groups'] == 1) &&
+			if((($topic_permissions['can_delete_commentaries_from_users_in_lower_groups'] ?? 0) == 1) &&
 			($is_user_rank_better_than_user_from_rank))
 			{		
 				$set_permission_to_true = 1;
 			}
-			if(($topic_permissions['can_delete_commentaries_from_users_in_groups_with_same_rank'] == 1) &&
+			if((($topic_permissions['can_delete_commentaries_from_users_in_groups_with_same_rank'] ?? 0) == 1) &&
 			($is_user_rank_equally_user_from_rank))
 			{			
 				$set_permission_to_true = 1;
@@ -1413,7 +1413,7 @@
 			echo "<table class = \"topic_table\">";
 			
 			$was_first = 0;
-			if($_GET['page'] == 1 || $_GET['page'] === null){
+			if(($_GET['page'] ?? 1) == 1){
 				echo "	<tr>";
 				echo "		<td colspan=\"2\">";
 				echo "			<b>".$topic_name."</b>";
@@ -1512,7 +1512,7 @@
 					$datetime_int = $row["creation_datetime_int"];
 					echo "			<div class=\"reg_date_text\">".gmdate("d.m.Y - H:i:s", $datetime_int)."</div>";
 					
-					if(($_GET['page'] != 1 && $_GET['page'] !== null) || $was_first !== 0) // самый первый комментарий в теме нельзя редактировать или удалить, так как он является "текстом темы"
+					if((($_GET['page'] ?? 1) != 1) || $was_first !== 0) // самый первый комментарий в теме нельзя редактировать или удалить, так как он является "текстом темы"
 					{
 						$commentary_id = $row['id'];
 						$user_permissions_to_commentary = GetUserCommentaryPermissions($user_id, $commentary_id);
@@ -1520,13 +1520,13 @@
 						$can_delete_this_commentary = $user_permissions_to_commentary['can_delete_this_commentary'];
 						
 						$is_editing_commentary = 0;
-						if($can_edit_this_commentary == 1 && $_GET['action'] == 'edit-commentary' && $_GET['commentary-id'] == $commentary_id) // если идёт редактирование текущего комментария
+						if($can_edit_this_commentary == 1 && ($_GET['action'] ?? null) == 'edit-commentary' && ($_GET['commentary-id'] ?? null) == $commentary_id) // если идёт редактирование текущего комментария
 						{
 							$is_editing_commentary = 1;
 						}
 						
 						$is_deleting_commentary = 0;
-						if($can_delete_this_commentary == 1 && $_GET['action'] == 'delete-commentary' && $_GET['commentary-id'] == $commentary_id) // если идёт удаление текущего комментария
+						if($can_delete_this_commentary == 1 && ($_GET['action'] ?? null) == 'delete-commentary' && ($_GET['commentary-id'] ?? null) == $commentary_id) // если идёт удаление текущего комментария
 						{
 							$is_deleting_commentary = 1;
 						}
@@ -1564,11 +1564,11 @@
 					echo "		<td class=\"commentary commentary_create\">";
 					$commentary = $row['text'];
 					$commentary = htmlspecialchars($commentary); // Преобразует специальные символы в HTML-сущности
-					if($is_editing_commentary)
+					if($is_editing_commentary ?? 0)
 					{
 						echo "			<form method=\"POST\" action='".$url_with_page."#".$tag_name."'>";
 						echo "				<input type=\"hidden\" name=\"commentary-id\" value=".$_GET['commentary-id'].">";
-						if($_POST['edited-commentary'] === null){
+						if(($_POST['edited-commentary'] ?? null) === null){
 							$_POST['edited-commentary'] = $commentary;
 						}
 						echo "				<textarea required rows=\"7\" maxlength=\"8191\" name=\"edited-commentary\" id=\"commentary\">".$_POST['edited-commentary']."</textarea>";
@@ -1595,7 +1595,7 @@
 					else
 					{
 						echo "			".$commentary;
-						if($is_deleting_commentary == 1)
+						if(($is_deleting_commentary ?? 0) == 1)
 						{
 							echo "			<form method=\"POST\" action='".$url_with_page."#".$tag_name_prev."'>";
 							echo "				<input type=\"hidden\" name=\"commentary-id\" value=".$_GET['commentary-id'].">";
@@ -1668,7 +1668,7 @@
 				echo "				</div>
 									<div class=\"topic_table_commentary_status\">
 				";
-											if(IsBanned($user_from_id)){
+											if(IsBanned($user_id)){
 												echo "<div class='status_banned'>Забанен</div>";
 											}
 											else{
@@ -1704,7 +1704,7 @@
 				echo "		<td class=\"commentary commentary_create\">";
 				echo "			<form method=\"POST\">";
 				echo "				<a id=\"create-commentary\"></a>";
-				echo "				<textarea required rows=\"9\" maxlength=\"8191\" name=\"commentary\" id=\"commentary\">".$_POST['commentary']."</textarea>";
+				echo "				<textarea required rows=\"9\" maxlength=\"8191\" name=\"commentary\" id=\"commentary\">".($_POST['commentary'] ?? "")."</textarea>";
 				
 				if($action != 'edit' && $action != 'delete'){
 					global $errors_number;
@@ -1859,7 +1859,9 @@
 						}
 						
 						$select_name = "forum_permission_".$permissions_fields_names[$new_i]."_for_group_with_id_".$groups_ids[$i2];
-						
+
+                        $_POST[$select_name] = $_POST[$select_name] ?? null;
+
 						if($groups_ids[$i2] == 1) // если группа - владельцы
 						{
 							$_POST[$select_name] = "1";
@@ -1876,22 +1878,21 @@
 						if($forum_id === "0" && $action != 'create-forum')
 						{
 									echo "
-										<option value=\"0\" "; if($_POST[$select_name] === null || $_POST[$select_name] === "0" || $cant_delete === 1) echo "selected"; echo ">
-											Запретить
-										</option>";
-						}
+										<option value=\"0\" "; if($_POST[$select_name] === null || $_POST[$select_name] === "0" || $cant_delete === 1) echo "selected";
+                        }
 						else
 						{
 									echo "
 										<option value=\"2\" "; if(($_POST[$select_name] === null || $_POST[$select_name] === "2") && $cant_delete === 0) echo "selected"; echo ">
 											Не установлено (наследовать)
 										</option>
-										<option value=\"0\" "; if($_POST[$select_name] === "0" || $cant_delete === 1) echo "selected"; echo ">
-											Запретить
-										</option>";
-						}
-										
-										echo "<option value=\"1\" "; if($_POST[$select_name] === "1" && $cant_delete === 0) echo "selected"; echo ">
+										<option value=\"0\" "; if($_POST[$select_name] === "0" || $cant_delete === 1) echo "selected";
+                        }
+                        echo ">
+                                                                    Запретить
+                                                                </option>";
+
+                        echo "<option value=\"1\" "; if($_POST[$select_name] === "1" && $cant_delete === 0) echo "selected"; echo ">
 											Разрешить
 										</option>
 									</select>

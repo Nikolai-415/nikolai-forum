@@ -46,7 +46,7 @@
 			header ("Location: /forum?id=$forum_id"); // перенаправляем на форум
 			exit;
 		}
-		else if($_POST['button_submit'] != '') //если пользователь подтвердил действие
+		else if(($_POST['button_submit'] ?? null) != '') //если пользователь подтвердил действие
 		{
 			$stmt = $mysqli->prepare("SELECT forum_id FROM forums WHERE (id = ?);");
 			$stmt->bind_param("i", $forum_id);
@@ -77,7 +77,7 @@
 			header ("Location: /forum?id=$forum_id"); // перенаправляем на форум
 			exit;
 		}
-		else if($_POST['button_submit'] !== null)
+		else if(($_POST['button_submit'] ?? null) !== null)
 		{
 			// проверка на то, что пользователь имеет доступ для создания форумов в выбранном форуме
 			$user_permissions_2 = GetUserForumPermissions($user_id, $_POST['forums_tree']);
@@ -125,7 +125,7 @@
 						for($permission_id = 0; $permission_id < $permissions_number; $permission_id++)
 						{
 							$name_of_select = "forum_permission_".$permissions_fields_names[$permission_id]."_for_group_with_id_".$group_id;
-							$select_values[$permission_id] = $_POST[$name_of_select];
+							$select_values[$permission_id] = $_POST[$name_of_select] ?? "2";
 							if($user_max_group_rank > $group_rank)
 							{
 								$select_values[$permission_id] = "2"; // для групп, у которых ранг выше, чем максимальный ранг группы у пользователя
@@ -270,7 +270,7 @@
 		
 		if($row)
 		{		
-			if($_POST['button_submit'] === null)
+			if(($_POST['button_submit'] ?? null) === null)
 			{
 				$_POST['forum_name'] = $row['name'];
 				CheckStringValue($_POST['forum_name']);
@@ -292,7 +292,7 @@
 				$groups_ids[$groups_number] = $row['id'];
 				$groups_number++;
 			}
-		
+
 			for($group_local_id = 0; $group_local_id < $groups_number; $group_local_id++) // для каждой группы
 			{
 				$group_id = $groups_ids[$group_local_id];
@@ -311,7 +311,7 @@
 					{
 						$name_of_select = "forum_permission_".$permissions_fields_names[$permission_id]."_for_group_with_id_".$group_id;
 						
-						if($_POST['button_submit'] === null)
+						if(($_POST['button_submit'] ?? null) === null)
 						{
 							$_POST[$name_of_select] = "".$row[$permissions_fields_names[$permission_id]];
 						}
@@ -322,7 +322,7 @@
 			}
 		}
 	
-		if($_POST['button_submit'] !== null)
+		if(($_POST['button_submit'] ?? null) !== null)
 		{
 			// проверка на то, что пользователь имеет доступ для изменения выбранного форума
 			$user_permissions_2 = GetUserForumPermissions($user_id, $forum_id);
@@ -397,7 +397,7 @@
 							for($permission_id = 0; $permission_id < $permissions_number; $permission_id++)
 							{
 								$name_of_select = "forum_permission_".$permissions_fields_names[$permission_id]."_for_group_with_id_".$group_id;
-								$select_values[$permission_id] = $_POST[$name_of_select];
+								$select_values[$permission_id] = $_POST[$name_of_select] ?? "2";
 								
 								$cant_delete = 0;
 								if(($forum_id === "0") && ($permissions_fields_names[$permission_id] === "can_delete_this_forum")){
@@ -406,7 +406,7 @@
 								
 								if(($user_max_group_rank > $group_rank))
 								{
-									$select_values[$permission_id] = "".$loaded_permissions[$name_of_select]; // для групп, у которых ранг выше, чем максимальный ранг группы у пользователя
+									$select_values[$permission_id] = "".($loaded_permissions[$name_of_select] ?? 2); // для групп, у которых ранг выше, чем максимальный ранг группы у пользователя
 								}
 								
 								if($cant_delete)
@@ -522,7 +522,7 @@
 			header ("Location: /forum?id=$forum_id"); // перенаправляем на форум
 			exit;
 		}
-		else if($_POST['button_submit'] !== null)
+		else if(($_POST['button_submit'] ?? null) !== null)
 		{
 			// проверка на то, что пользователь имеет доступ для создания тем в выбранном форуме
 			$user_permissions_2 = GetUserForumPermissions($user_id, $_POST['forums_tree']);
@@ -545,7 +545,8 @@
 					$stmt = $mysqli->prepare("
 						INSERT INTO commentaries(topic_id, user_from_id, text, creation_datetime_int) values(?, ?, ?, ?);
 					");
-					$stmt->bind_param("iisi", $created_topic_id, $user_id, $_POST['topic-commentary'], GetLocalTime(time()));
+					$getLocalTime = GetLocalTime(time());
+					$stmt->bind_param("iisi", $created_topic_id, $user_id, $_POST['topic-commentary'], $getLocalTime);
 					if($stmt->execute())
 					{
 						header ("Location: /topic?id=".$created_topic_id); // перенаправляем на созданную тему
@@ -691,7 +692,7 @@
 														</label>
 													</td>
 													<td>
-														<input required type=\"text\" size=\"32\" maxlength=\"63\" name=\"forum_name\" id=\"forum_name\" value=\"".$_POST['forum_name']."\">
+														<input required type=\"text\" size=\"32\" maxlength=\"63\" name=\"forum_name\" id=\"forum_name\" value=\"".($_POST['forum_name'] ?? "")."\">
 													</td>
 												</tr>
 												<tr>
@@ -701,7 +702,7 @@
 														</label>
 													</td>
 													<td>
-														<textarea rows=\"3\" cols=\"34\" maxlength=\"255\" name=\"forum_description\" id=\"forum_description\">".$_POST['forum_description']."</textarea>
+														<textarea rows=\"3\" cols=\"34\" maxlength=\"255\" name=\"forum_description\" id=\"forum_description\">".($_POST['forum_description'] ?? "")."</textarea>
 													</td>
 												</tr>
 												<tr>
@@ -712,10 +713,10 @@
 													</td>
 													<td>
 														<select name=\"forum_is_description_hided\">
-															<option value=\"1\" "; if($_POST['forum_is_description_hided'] === null || $_POST['forum_is_description_hided'] === "1") echo "selected"; echo ">
+															<option value=\"1\" "; if(($_POST['forum_is_description_hided'] ?? null) === null || ($_POST['forum_is_description_hided'] ?? null) === "1") echo "selected"; echo ">
 																Да
 															</option>
-															<option value=\"0\" "; if($_POST['forum_is_description_hided'] === "0") echo "selected"; echo ">
+															<option value=\"0\" "; if(($_POST['forum_is_description_hided'] ?? null) === "0") echo "selected"; echo ">
 																Нет
 															</option>
 														</select>
@@ -729,10 +730,10 @@
 													</td>
 													<td>
 														<select name=\"forum_is_category\" "; if($forum_id === "0" && $action != 'create-forum'){ echo "disabled"; } echo ">
-															<option value=\"1\" "; if($_POST['forum_is_category'] === "1") echo "selected"; echo ">
+															<option value=\"1\" "; if(($_POST['forum_is_category'] ?? null) === "1") echo "selected"; echo ">
 																Да
 															</option>
-															<option value=\"0\" "; if($_POST['forum_is_category'] === null || $_POST['forum_is_category'] === "0") echo "selected"; echo ">
+															<option value=\"0\" "; if(($_POST['forum_is_category'] ?? null) === null || ($_POST['forum_is_category'] ?? null) === "0") echo "selected"; echo ">
 																Нет
 															</option>
 														</select>
@@ -745,7 +746,7 @@
 														</label>
 													</td>
 													<td>";
-									$selected_forum = $_POST['forum_tree'];
+									$selected_forum = $_POST['forum_tree'] ?? null;
 									if($selected_forum === null) // если запроса POST нет
 									{
 										$selected_forum = $forum_id;
@@ -786,7 +787,7 @@
 														</label>
 													</td>
 													<td>
-														<input required type=\"text\" size=\"32\" maxlength=\"63\" name=\"topic_name\" id=\"topic_name\" value=\"".$_POST['topic_name']."\">
+														<input required type=\"text\" size=\"32\" maxlength=\"63\" name=\"topic_name\" id=\"topic_name\" value=\"".($_POST['topic_name'] ?? "")."\">
 													</td>
 												</tr>
 												<tr>
@@ -796,7 +797,7 @@
 														</label>
 													</td>
 													<td>
-														<textarea rows=\"3\" cols=\"34\" maxlength=\"255\" name=\"topic_description\" id=\"topic_description\">".$_POST['topic_description']."</textarea>
+														<textarea rows=\"3\" cols=\"34\" maxlength=\"255\" name=\"topic_description\" id=\"topic_description\">".($_POST['topic_description'] ?? "")."</textarea>
 													</td>
 												</tr>
 												<tr>
@@ -807,10 +808,10 @@
 													</td>
 													<td>
 														<select name=\"topic_is_description_hided\">
-															<option value=\"1\" "; if($_POST['topic_is_description_hided'] === null || $_POST['topic_is_description_hided'] === "1") echo "selected"; echo ">
+															<option value=\"1\" "; if(($_POST['topic_is_description_hided'] ?? null) === null || ($_POST['topic_is_description_hided'] ?? null) === "1") echo "selected"; echo ">
 																Да
 															</option>
-															<option value=\"0\" "; if($_POST['topic_is_description_hided'] === "0") echo "selected"; echo ">
+															<option value=\"0\" "; if(($_POST['topic_is_description_hided'] ?? null) === "0") echo "selected"; echo ">
 																Нет
 															</option>
 														</select>
@@ -824,10 +825,10 @@
 													</td>
 													<td>
 														<select name=\"topic_is_closed\">
-															<option value=\"1\" "; if($_POST['topic_is_closed'] === "1") echo "selected"; echo ">
+															<option value=\"1\" "; if(($_POST['topic_is_closed'] ?? null) === "1") echo "selected"; echo ">
 																Да
 															</option>
-															<option value=\"0\" "; if($_POST['topic_is_closed'] === null || $_POST['topic_is_closed'] === "0") echo "selected"; echo ">
+															<option value=\"0\" "; if(($_POST['topic_is_closed'] ?? null) === null || ($_POST['topic_is_closed'] ?? null) === "0") echo "selected"; echo ">
 																Нет
 															</option>
 														</select>
@@ -840,7 +841,7 @@
 														</label>
 													</td>
 													<td>";
-									$selected_forum = $_POST['forum_tree'];
+									$selected_forum = $_POST['forum_tree'] ?? null;
 									if($selected_forum === null) // если запроса POST нет
 									{
 										$selected_forum = $forum_id;
@@ -860,7 +861,7 @@
 												</tr>
 												<tr>
 													<td colspan=\"2\">
-														<textarea required rows=\"7\" maxlength=\"8191\" name=\"topic-commentary\" id=\"topic-commentary\">".$_POST['topic-commentary']."</textarea>
+														<textarea required rows=\"7\" maxlength=\"8191\" name=\"topic-commentary\" id=\"topic-commentary\">".($_POST['topic-commentary'] ?? "")."</textarea>
 													</td>
 												</tr>
 											</table>

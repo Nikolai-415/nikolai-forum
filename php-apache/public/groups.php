@@ -15,7 +15,7 @@
 	
 	$errors_number = 0;
 	
-	$action = $_GET['action'];
+	$action = $_GET['action'] ?? null;
 	if($action === null)
 	{
 		$action = 'view';

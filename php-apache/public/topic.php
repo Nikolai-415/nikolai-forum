@@ -55,20 +55,20 @@
 	}
 	
 	$pages_num = ceil($records_num / $records_on_page);
-	if($page_number > $pages_num)
+	if(($page_number ?? 1) > $pages_num)
 	{
 		header ('Location: '.$url_for_page_navigation.'&page='.$pages_num);
 		exit;
 	}
 	
 	$extra_page_name_text = "_2";
-	if($_GET['page'.$extra_page_name_text] !== null)
+	if(($_GET['page'.$extra_page_name_text] ?? null) !== null)
 	{
 		$_GET['page'] = $_GET['page'.$extra_page_name_text];
 	}
 	
 	$page_number = 1;
-	if($_GET['page'] !== null)
+	if(($_GET['page'] ?? null) !== null)
 	{
 		$page_number = $_GET['page'];
 		if($page_number == 'last')
@@ -84,21 +84,21 @@
 	}
 	/* ============================================= */
 	
-	$action = $_GET['action'];
+	$action = $_GET['action'] ?? null;
 	$errors_text = array(); // название каждой ошибки
 	$errors_number = 0;
 	$url_with_page = $url_for_page_navigation;
-	if($_GET['page'] !== null)
+	if(($_GET['page'] ?? null) !== null)
 	{
 		$url_with_page .= "&page=".$_GET['page'];
 	}
 	if($action != 'edit' && $action != 'delete') // если запрос пустой
 	{
-		if($_GET['action'] === null){
+		if(($_GET['action'] ?? null) === null){
 			$action = 'view';
 		}
 		
-		if($_POST['button_submit'] !== null) // если пользователь подтвердил действие
+		if(($_POST['button_submit'] ?? null) !== null) // если пользователь подтвердил действие
 		{
 			if($can_create_commentaries == 0) // если пользователь не имеет соответствующих прав
 			{
@@ -108,7 +108,7 @@
 			else
 			{
 				$creation_datetime_int = GetLocalTime(time());
-				if($_POST['commentary'] != '')
+				if(($_POST['commentary'] ?? null) != '')
 				{
 					$commentary = $_POST['commentary'];
 					
@@ -131,7 +131,7 @@
 			}
 		}
 		
-		if(($_POST['button_submit_edit'] !== null) || ($_POST['button_submit_delete'] !== null)) // в случае удаления и редактирования комментария
+		if((($_POST['button_submit_edit'] ?? null) !== null) || (($_POST['button_submit_delete'] ?? null) !== null)) // в случае удаления и редактирования комментария
 		{
 			$commentary_id = $_POST['commentary-id'];
 			if(($commentary_id == null) || (IsCommentaryExist($commentary_id) == 0))
@@ -205,7 +205,7 @@
 	else
 	{
 		$url_with_page = $url_for_page_navigation;
-		if($_GET['page'] !== null)
+		if(($_GET['page'] ?? null) !== null)
 		{
 			$url_with_page .= "&page=".$_GET['page'];
 		}
@@ -219,7 +219,7 @@
 				header ("Location: ".$url_with_page); // перенаправляем на тему
 				exit;
 			}
-			else if($_POST['button_submit'] !== null) // если пользователь подтвердил действие
+			else if(($_POST['button_submit'] ?? null) !== null) // если пользователь подтвердил действие
 			{
 				$stmt = $mysqli->prepare("SELECT forum_id FROM topics WHERE (id = ?);");
 				$stmt->bind_param("i", $topic_id);
@@ -261,7 +261,7 @@
 			
 			if($row)
 			{		
-				if($_POST['button_submit'] === null)
+				if(($_POST['button_submit'] ?? null) === null)
 				{
 					$_POST['topic_name'] = $row['name'];
 					CheckStringValue($_POST['topic_name']);
@@ -381,7 +381,7 @@
 	$records_on_page = 10;
 	
 	$page_number = 1;
-	if($_GET['page'] !== null)
+	if(($_GET['page'] ?? null) !== null)
 	{
 		$page_number = $_GET['page'];
 		if($page_number < 1)
@@ -389,7 +389,7 @@
 			header ('Location: '.$url_for_page_navigation.'&page=1');
 			exit;
 		}
-		if($_GET['button'] !== null)
+		if(($_GET['button'] ?? null) !== null)
 		{
 			header ('Location: '.$url_for_page_navigation.'&page='.$page_number);
 			exit;
@@ -421,7 +421,7 @@
 	}
 	/* ============================================= */
 	
-	if($successful_create == 1) // при добавлении комментария - перекидываем в конец темы (к этому самому комментарию)
+	if($successful_create ?? 0 == 1) // при добавлении комментария - перекидываем в конец темы (к этому самому комментарию)
 	{
 		header ('Location: '.$url_for_page_navigation.'&page='.$pages_num."#topic-bottom");
 		exit;
@@ -582,7 +582,7 @@
 														</label>
 													</td>
 													<td>";
-									$selected_forum = $_POST['forum_tree'];
+									$selected_forum = $_POST['forum_tree'] ?? null;
 									if($selected_forum === null) // если запроса POST нет
 									{
 										$stmt = $mysqli->prepare("SELECT forum_id FROM topics WHERE (id = ?);");
@@ -601,7 +601,7 @@
 										
 										$selected_forum = $forum_id;
 									}
-									EchoForumsTreeInSelectTag($user_id, $selected_forum, $forum_id, $action, 1);
+									EchoForumsTreeInSelectTag($user_id, $selected_forum, $forum_id ?? $selected_forum, $action, 1);
 									echo "
 													</td>
 												</tr>
@@ -616,7 +616,7 @@
 												</tr>
 												<tr>
 													<td colspan=\"2\">
-														<textarea required rows=\"7\" maxlength=\"8191\" name=\"topic-commentary\" id=\"topic-commentary\">".$_POST['topic-commentary']."</textarea>
+														<textarea required rows=\"7\" maxlength=\"8191\" name=\"topic-commentary\" id=\"topic-commentary\">".($_POST['topic-commentary'] ?? "")."</textarea>
 													</td>
 												</tr>
 											</table>

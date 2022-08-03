@@ -25,7 +25,7 @@
 					<?php
 						for($i = 0; $i < sizeof($menu_title); $i++){
 							$is_active = false;
-							if($menu_button - 1 == $i)
+							if(($menu_button ?? null) - 1 == $i)
 							{
 								if($i == 1){
 									$is_active = true;

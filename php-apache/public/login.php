@@ -1,8 +1,6 @@
 <?php
-$path = "/var/www/html";
-require $path . "/includes/mysql/mysql_connect.php";
-
-require $path . "/includes/session/session_start.php";
+require "includes/mysql/mysql_connect.php";
+require "includes/session/session_start.php";
 if (IsLogged()) {
     header('Location: /profile');
     exit;
@@ -10,10 +8,10 @@ if (IsLogged()) {
 CheckBanAndLogoutIfTrue();
 
 $title = "Авторизация";
-include_once $path . "/includes/head.php";
+include_once "includes/head.php";
 
 $menu_button = 3;
-include_once $path . "/includes/header.php";
+include_once "includes/header.php";
 ?>
     <form action="/login" method="POST" class="reglog_form">
         <fieldset>
@@ -136,6 +134,6 @@ include_once $path . "/includes/header.php";
         </fieldset>
     </form>
 <?php
-include_once $path . "/includes/footer.php";
-require $path . "/includes/mysql/mysql_disconnect.php";
+include_once "includes/footer.php";
+require "includes/mysql/mysql_disconnect.php";
 ?>

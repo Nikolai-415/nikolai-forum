@@ -1,7 +1,7 @@
 * {
-	padding: 0px;
-	margin: 0px;
-	font-family: "Arial", Sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: "Arial", sans-serif;
 }
 
 a {
@@ -22,7 +22,7 @@ a {
 
 body {
 	background-color: #000000;
-	background-image: url("/img/background.png");
+	background-image: url("../img/background.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -47,20 +47,20 @@ body {
 
 #menu_bar {
     text-align: center;
-	float:center;
+	float: none;
 	margin: 0 auto;
 }
 
 .menu_button {
 	color: #ffffff;
-	background-image: url("/img/menu/bgmenu_2.png");
+	background-image: url("../img/menu/bgmenu_2.png");
     display: inline-block;
 	padding: 10px 30px;
 	margin: 2px 5px;
 }
 
 .active_menu_button {
-	background-image: url("/img/menu/bgmenu_1.png");
+	background-image: url("../img/menu/bgmenu_1.png");
 }
 
 /* ============================================= */
@@ -526,7 +526,7 @@ article {
 .forum_table_forums_names div {
 	display:inline-block;
     text-align: center;
-	float:center;
+	float: none;
 	margin: 4px 4px 9px 4px;
 }
 
@@ -547,11 +547,9 @@ article {
 }
 
 .forum_table tr th {
-	padding: 4px;
 	background-color: #000000;
 	color: #ffffff;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding: 4px 10px;
 	text-align: center;
 	font-size: 80%;
 }
@@ -569,15 +567,15 @@ article {
 }
 
 .forum_table_td_icon_forum {
-	background-image: url("/img/forum/icon_forum.png");
+	background-image: url("../img/forum/icon_forum.png");
 }
 
 .forum_table_td_icon_topic {
-	background-image: url("/img/forum/icon_topic.png");
+	background-image: url("../img/forum/icon_topic.png");
 }
 
 .forum_table_td_icon_topic_closed {
-	background-image: url("/img/forum/icon_topic_closed.png");
+	background-image: url("../img/forum/icon_topic_closed.png");
 }
 
 .forum_table tr .forum_table_td_1 {
@@ -611,12 +609,10 @@ article {
 }
 
 .forum_table tr td {
-	padding: 4px;
 	background-color: #222222;
 	color: #ffffff;
 	text-align: left;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding: 4px 10px;
 	height: 30px;
 	font-size: 80%;
 }
@@ -733,7 +729,7 @@ article {
 
 .forum_form fieldset .permissions tr td {
 	width: 25%;
-	padding: 0px;
+	padding: 0;
 	background-color: #222222;
 	text-align: left;
 }
@@ -828,19 +824,17 @@ article {
 }
 
 .topic_table tr td {
-	padding: 4px;
 	background-color: #000000;
 	color: #ffffff;
 	text-align: left;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding: 4px 10px;
 	font-size: 80%;
 	vertical-align: top;
 }
 
 .topic_table tr .td_visitka {
 	text-align: center;
-	padding: 0px;
+	padding: 0;
 }
 
 .topic_table tr .reg_date_info {

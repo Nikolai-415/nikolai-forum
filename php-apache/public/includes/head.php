@@ -1,4 +1,4 @@
-<?
+<?php
 $site_name = "Nikolai's Forum";
 $title = htmlspecialchars($title); // Преобразует специальные символы в HTML-сущности
 ?>

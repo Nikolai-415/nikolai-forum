@@ -1,11 +1,13 @@
 <?php
-$path = "/var/www/html";
-require $path . "/includes/mysql/mysql_connect.php";
-
-require $path . "/includes/session/session_start.php";
+require "includes/mysql/mysql_connect.php";
+require "includes/session/session_start.php";
 CheckBanAndLogoutIfTrue();
 
-$action = $_GET['action'] ?? null;
+// Устранение варнингов
+$action = $_GET['action'] ?? 'view';
+$errors_text = $errors_text ?? array();
+$errors_number = $errors_number ?? 0;
+$mysqli = $mysqli ?? null;
 
 $records_on_page = 30;
 
@@ -17,10 +19,8 @@ if ($page_number <= 0) {
 
 $url_with_page = "/users?page=" . $page_number;
 
-if ($action === null) {
-    $url_for_page_navigation = "/users?page=";
-    $action = 'view';
-} else if ($action == 'search') {
+$url_for_page_navigation = "/users?page=";
+if ($action == 'search') {
     $url_for_page_navigation = "/users";
     $is_first = 1;
     if (($_GET['button_update'] ?? null) !== null) {
@@ -66,6 +66,7 @@ if ($action == 'search') {
 }
 $stmt->execute();
 $result_set = $stmt->get_result();
+$records_num = 0;
 if ($row = $result_set->fetch_assoc()) {
     $records_num = $row["count"];
 }
@@ -86,11 +87,11 @@ if ($pages_num != 0) {
 }
 
 $title = "Пользователи";
-include_once $path . "/includes/head.php";
+include_once "includes/head.php";
 ?>
 <?php
 $menu_button = 4;
-include_once $path . "/includes/header.php";
+include_once "includes/header.php";
 ?>
 <?php
 $show_article_menu = 0;
@@ -174,7 +175,7 @@ if ($action == 'search') {
 							";
 
 
-    if (sizeof($errors_text ?? array()) > 0) {
+    if (sizeof($errors_text) > 0) {
         echo "<div class=\"forum_form_errors\">";
 
         for ($i = 0; $i < $errors_number; $i++) {
@@ -277,6 +278,6 @@ if ($pages_num > 0) {
 }
 ?>
 <?php
-include_once $path . "/includes/footer.php";
-require $path . "/includes/mysql/mysql_disconnect.php";
+include_once "includes/footer.php";
+require "includes/mysql/mysql_disconnect.php";
 ?>

@@ -1386,7 +1386,9 @@ function EchoTopicTable($topic_id, $user_id, $limit, $offset, $action = 'view')
                     $avatar_link = "/img/profile_no_avatar.png";
                 }
                 CheckStringValue($avatar_link);
-                echo "				<div class=\"topic_table_commentary_avatar\" style=\"background-image: url(" . $avatar_link . ");\">
+
+                echo "              <!--suppress CssUnknownTarget -->
+                				    <div class=\"topic_table_commentary_avatar\" style=\"background-image: url(" . $avatar_link . ");\">
 										</div>
 										<div class=\"topic_table_commentary_rank\">
 					";
@@ -1563,7 +1565,9 @@ function EchoTopicTable($topic_id, $user_id, $limit, $offset, $action = 'view')
                 $avatar_link = "/img/profile_no_avatar.png";
             }
             CheckStringValue($avatar_link);
-            echo "				<div class=\"topic_table_commentary_avatar\" style=\"background-image: url(" . $avatar_link . ");\">
+            $avatar_link = $avatar_link ?? "";
+            echo "              <!--suppress CssUnknownTarget -->
+            				    <div class=\"topic_table_commentary_avatar\" style=\"background-image: url(" . $avatar_link . ");\">
 									</div>
 									<div class=\"topic_table_commentary_rank\">
 				";
@@ -1648,7 +1652,7 @@ function EchoForumsTreeInSelectTag_EchoOptions($user_id, $selected_id = 0, $foru
 /* Выводит выпадающий список со всеми видимыми для пользователя форумами. */
 function EchoForumsTreeInSelectTag($user_id, $selected_id = "0", $forum_id = 0, $action = "view", $is_topic = 0)
 {
-    echo "<select name=\"forums_tree\" ";
+    echo "<select id=\"forums_tree\" name=\"forums_tree\" ";
     if ($forum_id == 0 && $action == 'edit' && $is_topic == 0) {
         echo "disabled";
     }
@@ -1817,8 +1821,6 @@ function EchoGroupsPermissionsSettingsInTrTag($user_id)
     global $permissions_descriptions2;
     global $permissions_number2;
 
-    $groups_to_permissions = array();
-
     for ($i = 0; $i < $permissions_number2; $i += 3) {
         echo "
 						<tr>
@@ -1930,6 +1932,9 @@ function CheckValue012AndSetToDefaultIfWrong(&$value)
 /* Проверка на корректность значения опции для текстовых. */
 function CheckStringValue(&$value)
 {
+    if ($value == null) {
+        return null;
+    }
     $value = htmlspecialchars($value); // Преобразует специальные символы в HTML-сущности
 }
 

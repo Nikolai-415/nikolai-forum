@@ -1,10 +1,16 @@
 <?php
-$path = "/var/www/html";
-require $path . "/includes/mysql/mysql_connect.php";
-
-require $path . "/includes/session/session_start.php";
+require "includes/mysql/mysql_connect.php";
+require "includes/session/session_start.php";
 CheckBanAndLogoutIfTrue();
 CheckIsLoggedAndLogoutIfFalse();
+
+// Устранение варнингов
+$_POST['button_submit'] = $_POST['button_submit'] ?? null;
+$_POST['group-name'] = $_POST['group-name'] ?? null;
+$_POST['group-description'] = $_POST['group-description'] ?? null;
+$_POST['group-rank'] = $_POST['group-rank'] ?? null;
+$group_id = $group_id ?? null;
+$errors_text = $errors_text ?? array();
 
 $user_id = GetSessionId();
 
@@ -199,7 +205,7 @@ if ($action === null) {
 
     for ($i2 = 0; $i2 < $groups_number; $i2++) {
         for ($i3 = 0; $i3 < 3; $i3++) {
-            $new_i = $i + $i3;
+            $new_i = $i2 + $i3;
             if ($new_i < $permissions_number2) {
                 $group_id = $groups_ids[$i2];
 
@@ -338,10 +344,10 @@ if ($action === null) {
         }
     }
 }
-include_once $path . "/includes/head.php";
+include_once "includes/head.php";
 ?>
 <?php
-include_once $path . "/includes/header.php";
+include_once "includes/header.php";
 ?>
 <?php
 $show_article_menu = 0;
@@ -574,6 +580,6 @@ echo "
 						";
 ?>
 <?php
-include_once $path . "/includes/footer.php";
-require $path . "/includes/mysql/mysql_disconnect.php";
+include_once "includes/footer.php";
+require "includes/mysql/mysql_disconnect.php";
 ?>

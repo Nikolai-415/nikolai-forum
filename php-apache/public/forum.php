@@ -1,8 +1,6 @@
 <?php
-$path = "/var/www/html";
-require $path . "/includes/mysql/mysql_connect.php";
-
-require $path . "/includes/session/session_start.php";
+require "includes/mysql/mysql_connect.php";
+require "includes/session/session_start.php";
 CheckBanAndLogoutIfTrue();
 
 $forum_id = 0;
@@ -515,11 +513,11 @@ $title = "Форум";
 if ($row) {
     $title = $row['name'];
 }
-include_once $path . "/includes/head.php";
+include_once "includes/head.php";
 ?>
 <?php
 $menu_button = 2;
-include_once $path . "/includes/header.php";
+include_once "includes/header.php";
 ?>
 <?php
 if ($action == 'view') {
@@ -623,7 +621,7 @@ if ($action == 'view') {
 														</label>
 													</td>
 													<td>
-														<select name=\"forum_is_description_hided\">
+														<select id=\"forum_is_description_hided\" name=\"forum_is_description_hided\">
 															<option value=\"1\" ";
         if (($_POST['forum_is_description_hided'] ?? null) === null || ($_POST['forum_is_description_hided'] ?? null) === "1") echo "selected";
         echo ">
@@ -644,7 +642,7 @@ if ($action == 'view') {
 														</label>
 													</td>
 													<td>
-														<select name=\"forum_is_category\" ";
+														<select id=\"forum_is_category\" name=\"forum_is_category\" ";
         if ($forum_id === "0" && $action != 'create-forum') {
             echo "disabled";
         }
@@ -728,7 +726,7 @@ if ($action == 'view') {
 														</label>
 													</td>
 													<td>
-														<select name=\"topic_is_description_hided\">
+														<select id=\"topic_is_description_hided\" name=\"topic_is_description_hided\">
 															<option value=\"1\" ";
         if (($_POST['topic_is_description_hided'] ?? null) === null || ($_POST['topic_is_description_hided'] ?? null) === "1") echo "selected";
         echo ">
@@ -749,7 +747,7 @@ if ($action == 'view') {
 														</label>
 													</td>
 													<td>
-														<select name=\"topic_is_closed\">
+														<select id=\"topic_is_closed\" name=\"topic_is_closed\">
 															<option value=\"1\" ";
         if (($_POST['topic_is_closed'] ?? null) === "1") echo "selected";
         echo ">
@@ -846,6 +844,6 @@ echo "
 							";
 ?>
 <?php
-include_once $path . "/includes/footer.php";
-require $path . "/includes/mysql/mysql_disconnect.php";
+include_once "includes/footer.php";
+require "includes/mysql/mysql_disconnect.php";
 ?>

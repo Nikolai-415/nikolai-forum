@@ -4,7 +4,7 @@
         <img id="vk_link" src='/img/vk.png' alt="VK">
     </a>
     <div id="copyright">
-        <?php echo $site_name; ?> © 2020
+        <?php echo $site_name ?? ""; ?> © 2020
     </div>
 </footer>
 </div>

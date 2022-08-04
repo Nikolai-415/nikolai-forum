@@ -1,6 +1,6 @@
 <?php
 /* Проверяет, забанен ли указанный пользователь. */
-function IsBanned($user_id)
+function IsBanned($user_id): int
 {
     global $mysqli;
 
@@ -16,26 +16,15 @@ function IsBanned($user_id)
     if ($row) {
         return 1;
     }
+    return 0;
 }
 
 /* Возвращает информацию о варне в виде текста (в несколько строк). */
-function GetWarnString($row)
+function GetWarnString($row): string
 {
-    global $mysqli;
-
     $result = "";
-
     $user_from_id = $row['user_from_id'];
-
-    $stmt = $mysqli->prepare("SELECT * FROM users WHERE id = ?;");
-    $stmt->bind_param("i", $user_from_id);
-    $stmt->execute();
-    $result_set = $stmt->get_result();
-
-    $row2 = $result_set->fetch_assoc();
-
-    $user_from_name = $row2['nick'];
-    CheckStringValue($user_from_name);
+    $user_from_name = GetUserNickFromId($user_from_id);
 
     $warn_datetime_int = $row['warn_datetime_int'];
     $warn_datetime = gmdate("d.m.Y - H:i:s", $warn_datetime_int);
@@ -49,23 +38,11 @@ function GetWarnString($row)
 }
 
 /* Возвращает информацию о бане в виде текста (в несколько строк). */
-function GetBanString($row)
+function GetBanString($row): string
 {
-    global $mysqli;
-
     $result = "";
-
     $user_from_id = $row['user_from_id'];
-
-    $stmt = $mysqli->prepare("SELECT * FROM users WHERE id = ?;");
-    $stmt->bind_param("i", $user_from_id);
-    $stmt->execute();
-    $result_set = $stmt->get_result();
-
-    $row2 = $result_set->fetch_assoc();
-
-    $user_from_name = $row2['nick'];
-    CheckStringValue($user_from_name);
+    $user_from_name = GetUserNickFromId($user_from_id);
 
     $ban_datetime_int = $row['ban_datetime_int'];
     $ban_datetime = gmdate("d.m.Y - H:i:s", $ban_datetime_int);
@@ -89,7 +66,7 @@ function GetBanString($row)
 }
 
 /* Возвращает информацию о всех банах пользователя в виде текста (в несколько строк). */
-function GetBansString($user_id)
+function GetBansString($user_id): string
 {
     global $mysqli;
 
@@ -114,4 +91,15 @@ function GetBansString($user_id)
     return $result;
 }
 
-?>
+function GetUserNickFromId($user_id) : string {
+    global $mysqli;
+    $stmt = $mysqli->prepare("SELECT * FROM users WHERE id = ?;");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result_set = $stmt->get_result();
+    $row = $result_set->fetch_assoc();
+
+    $user_from_name = $row['nick'];
+    CheckStringValue($user_from_name);
+    return $user_from_name;
+}

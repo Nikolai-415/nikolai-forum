@@ -1,9 +1,16 @@
 <?php
-$path = "/var/www/html";
-require $path . "/includes/mysql/mysql_connect.php";
-
-require $path . "/includes/session/session_start.php";
+require "includes/mysql/mysql_connect.php";
+require "includes/session/session_start.php";
 CheckBanAndLogoutIfTrue();
+
+// Устранение варнингов
+$errors_text = $errors_text ?? array();
+$errors_number = $errors_number ?? 0;
+$_POST['description'] = $_POST['description'] ?? null;
+$_POST['button_unwarn'] = $_POST['button_unwarn'] ?? null;
+$_POST['button_unban'] = $_POST['button_unban'] ?? null;
+$_POST['unban_date'] = $_POST['unban_date'] ?? null;
+$_POST['is_permanent'] = $_POST['is_permanent'] ?? null;
 
 $is_created = array();
 
@@ -80,6 +87,7 @@ $user_permissions_to_this_user = GetUserPermissionsToUser($user_id, $profile_id)
 
 $errors_number = 0;
 
+$getLocalTime = GetLocalTime(time());
 if (($_POST['button_submit_edit'] ?? null) !== null) {
     if ($user_permissions_to_this_user['can_edit_user'] == 0) {
         header("Location: /profile?id=$profile_id"); // перенаправляем на профиль
@@ -112,7 +120,7 @@ if (($_POST['button_submit_edit'] ?? null) !== null) {
             $stmt = $mysqli->prepare("
 					INSERT INTO warns(user_from_id, user_to_id, description, warn_datetime_int) VALUES(?, ?, ?, ?);
 				");
-            $stmt->bind_param("iisi", $user_id, $profile_id, $_POST['description'], GetLocalTime(time()));
+            $stmt->bind_param("iisi", $user_id, $profile_id, $_POST['description'], $getLocalTime);
             if ($stmt->execute()) {
                 header("Location: /profile?id=$profile_id&action=view-warns"); // перенаправляем на профиль
             } else {
@@ -133,7 +141,7 @@ if (($_POST['button_submit_edit'] ?? null) !== null) {
 					VALUES(?, ?, ?, ?, ?, ?);
 				");
             $unban_datetime_int = GetLocalTime(strtotime($_POST['unban_date']));
-            $stmt->bind_param("iisiii", $user_id, $profile_id, $_POST['description'], GetLocalTime(time()), $_POST['is_permanent'], $unban_datetime_int);
+            $stmt->bind_param("iisiii", $user_id, $profile_id, $_POST['description'], $getLocalTime, $_POST['is_permanent'], $unban_datetime_int);
             if ($stmt->execute()) {
                 header("Location: /profile?id=$profile_id&action=view-bans"); // перенаправляем на профиль
             } else {
@@ -272,19 +280,19 @@ if ($action == 'unwarn') {
     }
 }
 
-include_once $path . "/includes/head.php";
+include_once "includes/head.php";
 ?>
 <?php
 $menu_button = 3;
-include_once $path . "/includes/header.php";
+include_once "includes/header.php";
 ?>
 <?php
 CheckStringValue($profile_nick);
 
-$about = $row["about"];
+$about = $row["about"] ?? null;
 CheckStringValue($about);
 
-$avatar_link = $row["avatar_link"];
+$avatar_link = $row["avatar_link"] ?? null;
 if ($avatar_link == null) {
     $avatar_link = "/img/profile_no_avatar.png";
 }
@@ -441,14 +449,16 @@ if ($action == 'view' || $action == 'edit-profile') {
         echo "<div class='status_banned'>Забанен</div>";
     } else {
         $last_active_datetime_int = $row["last_active_datetime_int"];
-        if ((GetLocalTime(time()) - $last_active_datetime_int) / 60 >= 5) {
+        if (($getLocalTime - $last_active_datetime_int) / 60 >= 5) {
             echo "<div class='status_offline'>Оффлайн</div>";
         } else {
             echo "<div class='status_online'>Онлайн</div>";
         }
     }
+    $avatar_link = $avatar_link ?? "";
     echo "
 													</div>
+													<!--suppress CssUnknownTarget -->
 													<div id=\"avatar\" style=\"background-image: url(" . $avatar_link . ");\">
 													</div>
 													<div id=\"rank\">
@@ -825,7 +835,7 @@ if ($action == 'view' || $action == 'edit-profile') {
 																</label>
 															</td>
 															<td>
-																<select name=\"is_permanent\">
+																<select id=\"is_permanent\" name=\"is_permanent\">
 																	<option value=\"1\" ";
         if ($_POST['is_permanent'] === "1") echo "selected";
         echo ">
@@ -1146,6 +1156,6 @@ if ($action == 'view' || $action == 'edit-profile') {
 }
 ?>
 <?php
-include_once $path . "/includes/footer.php";
-require $path . "/includes/mysql/mysql_disconnect.php";
+include_once "includes/footer.php";
+require "includes/mysql/mysql_disconnect.php";
 ?>

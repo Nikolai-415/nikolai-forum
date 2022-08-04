@@ -1,9 +1,14 @@
 <?php
-$path = "/var/www/html";
-require $path . "/includes/mysql/mysql_connect.php";
-
-require $path . "/includes/session/session_start.php";
+require "includes/mysql/mysql_connect.php";
+require "includes/session/session_start.php";
 CheckBanAndLogoutIfTrue();
+
+// Устранение варнингов
+$errors_text = $errors_text ?? array();
+$errors_number = $errors_number ?? 0;
+$_POST['button_submit_edit'] = $_POST['button_submit_edit'] ?? null;
+$_POST['button_submit_delete'] = $_POST['button_submit_delete'] ?? null;
+
 
 $topic_id = 0;
 if (($_GET['id'] ?? null) !== null) {
@@ -75,8 +80,6 @@ if (($_GET['page'] ?? null) !== null) {
 /* ============================================= */
 
 $action = $_GET['action'] ?? null;
-$errors_text = array(); // название каждой ошибки
-$errors_number = 0;
 $url_with_page = $url_for_page_navigation;
 if (($_GET['page'] ?? null) !== null) {
     $url_with_page .= "&page=" . $_GET['page'];
@@ -112,7 +115,7 @@ if ($action != 'edit' && $action != 'delete') // если запрос пуст�
         }
     }
 
-    if ((($_POST['button_submit_edit'] ?? null) !== null) || (($_POST['button_submit_delete'] ?? null) !== null)) // в случае удаления и редактирования комментария
+    if (($_POST['button_submit_edit'] !== null) || ($_POST['button_submit_delete'] !== null)) // в случае удаления и редактирования комментария
     {
         $commentary_id = $_POST['commentary-id'];
         if (($commentary_id == null) || (IsCommentaryExist($commentary_id) == 0)) {
@@ -364,11 +367,11 @@ $title = "Тема";
 if ($row) {
     $title = $row['name'];
 }
-include_once $path . "/includes/head.php";
+include_once "includes/head.php";
 ?>
 <?php
 $menu_button = 2;
-include_once $path . "/includes/header.php";
+include_once "includes/header.php";
 ?>
 <?php
 if ($action != 'edit' && $action != 'delete') {
@@ -460,7 +463,7 @@ if ($action != 'edit' && $action != 'delete') {
 														</label>
 													</td>
 													<td>
-														<select name=\"topic_is_description_hided\">
+														<select id=\"topic_is_description_hided\" name=\"topic_is_description_hided\">
 															<option value=\"1\" ";
         if ($_POST['topic_is_description_hided'] === null || $_POST['topic_is_description_hided'] === "1") echo "selected";
         echo ">
@@ -481,7 +484,7 @@ if ($action != 'edit' && $action != 'delete') {
 														</label>
 													</td>
 													<td>
-														<select name=\"topic_is_closed\">
+														<select id=\"topic_is_closed\" name=\"topic_is_closed\">
 															<option value=\"1\" ";
         if ($_POST['topic_is_closed'] === "1") echo "selected";
         echo ">
@@ -547,7 +550,7 @@ if ($action != 'edit' && $action != 'delete') {
         echo "<div class=\"forum_form_errors\">";
 
         for ($i = 0; $i < $errors_number; $i++) {
-            echo "<div color='red'>" . $errors_text[$i] . "</div>";
+            echo "<div>" . $errors_text[$i] . "</div>";
         }
 
         echo "</div>";
@@ -597,6 +600,6 @@ echo "<a id=\"topic-bottom\"></a>";
 EchoPageNavigation($url_for_page_navigation . '&page=', 1, $page_number, $pages_num, $records_on_page, 1);
 ?>
 <?php
-include_once $path . "/includes/footer.php";
-require $path . "/includes/mysql/mysql_disconnect.php";
+include_once "includes/footer.php";
+require "includes/mysql/mysql_disconnect.php";
 ?>

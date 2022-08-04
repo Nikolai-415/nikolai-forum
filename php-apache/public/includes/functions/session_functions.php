@@ -1,6 +1,6 @@
 <?php
 /* Проверяет, авторизовался ли текущий посетитель сайта. */
-function IsLogged()
+function IsLogged(): int
 {
     if (isset($_SESSION['logged_user'])) {
         return 1;
@@ -58,5 +58,3 @@ function CheckIsLoggedAndLogoutIfFalse()
         exit;
     }
 }
-
-?>

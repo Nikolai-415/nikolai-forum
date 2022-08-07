@@ -2,7 +2,7 @@ version: '3.9'
 
 networks:
   inner-network:
-    name: ${COMPOSE_PROJECT_NAME}-network
+    name: ${COMPOSE_PROJECT_NAME:-nikolai-forum}/network
 
 services:
   db:
@@ -10,7 +10,7 @@ services:
     container_name: db
     environment:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}"
-      - "MYSQL_DATABASE=${DBMS_DATABASE_NAME:-nikolai-forum}"
+      - "MYSQL_DATABASE=${DBMS_DATABASE_NAME:-nikolai_forum}"
       - "MYSQL_USER=${DBMS_USER_NAME:-nikolai}"
       - "MYSQL_PASSWORD=${DBMS_USER_PASSWORD:-nikolai}"
     volumes:
@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
       args:
         - ENVIRONMENT=${ENVIRONMENT:-dev}
-    image: ${COMPOSE_PROJECT_NAME}/php-apache:1.0.0-${ENVIRONMENT:-dev}
+    image: ${COMPOSE_PROJECT_NAME:-nikolai-forum}/php-apache:1.0.0-${ENVIRONMENT:-dev}
     container_name: php-apache
     volumes:
       - "./php-apache/public:/var/www/html"

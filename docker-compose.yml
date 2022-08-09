@@ -29,6 +29,7 @@ services:
         - ENVIRONMENT=${ENVIRONMENT:-dev}
     image: ${COMPOSE_PROJECT_NAME:-nikolai-forum}/php-apache:1.0.0-${ENVIRONMENT:-dev}
     container_name: php-apache
+    hostname: nikolai-forum
     volumes:
       - "./php-apache/public:/var/www/html"
     working_dir: "/var/www/html"

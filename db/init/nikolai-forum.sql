@@ -220,7 +220,7 @@ CREATE TABLE `users`  (
 -- Records of users
 -- ----------------------------
 -- Начальный пароль от админки - 123456789
-INSERT INTO `users` VALUES (-1, 0x61646D696E, '70873e8580c9900986939611618d7b1e', NULL, NULL, 1592771035, '', '', NULL);
+INSERT INTO `users` VALUES (-1, 0x61646D696E, '25f9e794323b453885f5181f1b624d0b', NULL, NULL, 1592771035, '', '', NULL);
 
 -- ----------------------------
 -- Table structure for users_to_groups

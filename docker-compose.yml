@@ -7,7 +7,7 @@ networks:
 services:
   db:
     image: mysql:8.0.30
-    container_name: db
+    container_name: ${COMPOSE_PROJECT_NAME:-nikolai-forum}.container.db
     environment:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}"
       - "MYSQL_DATABASE=${DBMS_DATABASE_NAME:-nikolai_forum}"
@@ -27,8 +27,8 @@ services:
       dockerfile: Dockerfile
       args:
         - ENVIRONMENT=${ENVIRONMENT:-dev}
-    image: ${COMPOSE_PROJECT_NAME:-nikolai-forum}/php-apache:1.0.0-${ENVIRONMENT:-dev}
-    container_name: php-apache
+    image: ${COMPOSE_PROJECT_NAME:-nikolai-forum}/image/php-apache:1.0.0-${ENVIRONMENT:-dev}
+    container_name: ${COMPOSE_PROJECT_NAME:-nikolai-forum}.container.php-apache
     hostname: nikolai-forum
     volumes:
       - "./php-apache/public:/var/www/html"

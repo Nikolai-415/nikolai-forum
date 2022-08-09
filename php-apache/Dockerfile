@@ -1,5 +1,5 @@
 # Образ PHP с сервером Apache
-ARG PHP_VERSION="8.1.8"
+ARG PHP_VERSION="8.1.9"
 FROM php:${PHP_VERSION}-apache-bullseye
 
 # Используемое окружение: dev, test или prod

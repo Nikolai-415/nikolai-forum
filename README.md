@@ -23,18 +23,25 @@
    cd nikolai-forum
    cp .env.example .env
    ```
-
 3. Настроить файл `.env` на своё усмотрение.
-4. Запустить проект командой:
+
+4. Также, скопировать файл `php-apache/public/includes/mysql/mysql_connect.php.example` в файл `php-apache/public/includes/mysql/mysql_connect.php`:
+
+   ```bash
+   cp php-apache/public/includes/mysql/mysql_connect.php.example php-apache/public/includes/mysql/mysql_connect.php
+   ```
+5. Настроить файл `php-apache/public/includes/mysql/mysql_connect.php` на своё усмотрение.
+
+6. Запустить проект командой:
 
    ```bash
    docker-compose up -d
    ```
 
-5. Проверить работу системы в браузере по адресу `http://localhost:80/`.
+7. Проверить работу системы в браузере по адресу `http://localhost:80/`.
    Порт настраивается в `.env`, `80` - значение по умолчанию.
    Для входа в систему под учётной записью главного администратора, использовать логин `admin` и пароль `123456789`.
-6. После завершения работы с системой остановить проект командой:
+8. После завершения работы с системой остановить проект командой:
 
    ```bash
    docker-compose down

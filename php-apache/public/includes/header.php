@@ -18,7 +18,6 @@ $menu_link[3] = "users";
                 <img id="head_img" src="/img/head.png" alt="<?php echo $site_name; ?>">
             </a>
             <div id="head_text">
-                В разработке...
             </div>
         </div>
         <div id="menu_bar">

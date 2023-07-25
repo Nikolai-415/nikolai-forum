@@ -1,10 +1,10 @@
 </article>
 <footer>
-    <a href="https://vk.com/id92908921" target="_blank" title="Ссылка на меня ВКонтакте">
-        <img id="vk_link" src='/img/vk.png' alt="VK">
+    <a href="https://t.me/nikolai2038" target="_blank" title="Ссылка на меня в Telegram">
+        <img id="telegram_link" src='/img/telegram.png' alt="telegram">
     </a>
     <div id="copyright">
-        <?php echo $site_name ?? ""; ?> © 2020
+        Nikolai2038 © 2020-<?php echo date("Y"); ?>
     </div>
 </footer>
 </div>

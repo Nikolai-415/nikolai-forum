@@ -1,5 +1,4 @@
-.idea
-.vscode
-db/data
-.env
-php-apache/public/includes/mysql/mysql_connect.php
+/.idea
+/.vscode
+/db/data
+/.env

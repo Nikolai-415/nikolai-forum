@@ -13,7 +13,6 @@ $title = htmlspecialchars($title); // Преобразует специальн�
     <link rel="stylesheet" href="/css/tablet.css">
     <link rel="stylesheet" href="/css/monitor.css">
     <link rel="stylesheet" href="/css/full_monitor.css">
-    <link rel="icon" href="/img/favicon.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <title>
         <?php echo $title . " - " . $site_name; ?>

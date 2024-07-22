@@ -21,8 +21,8 @@ services:
     ports:
       - "${DB_PORT_OUTER}:3306"
     volumes:
-      - "./db/init:/docker-entrypoint-initdb.d"
       - "${LOCAL_DATABASE_DIR}:/var/lib/mysql"
+    restart: always
 
   php-apache:
     build:
@@ -44,3 +44,4 @@ services:
       - .env
     volumes:
       - "./php-apache/public:/var/www/html"
+    restart: always

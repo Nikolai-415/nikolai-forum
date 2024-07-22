@@ -1,11 +1,11 @@
 # Образ PHP с сервером Apache
-ARG PHP_VERSION="8.1.21"
+ARG PHP_VERSION
 FROM php:${PHP_VERSION}-apache-bookworm
 
 # Используемое окружение: dev, test или prod
-ARG ENVIRONMENT="dev"
+ARG ENVIRONMENT
 
-# Обновление всех компонентов (только не на окружении разработки, чтобы разработка была быстрее)
+# Обновление всех компонентов (на окружении разработки не делаем, чтобы разработка была быстрее)
 RUN if [ "${ENVIRONMENT}" != "dev" ]; then \
         apt-get update && \
         apt-get upgrade -y; \
@@ -24,7 +24,7 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 RUN docker-php-ext-enable opcache
 
 # Версия Xdebug
-ARG XDEBUG_VERSION="3.2.2"
+ARG XDEBUG_VERSION
 
 # Скачивание и включение XDebug (только на окружении разработки, так как на других debug не нужен)
 RUN if [ "${ENVIRONMENT}" = "dev" ]; then \

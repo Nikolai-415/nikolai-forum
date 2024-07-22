@@ -1,42 +1,41 @@
-version: '3.7'
-
 networks:
   inner-network:
-    name: ${COMPOSE_PROJECT_NAME:-nikolai_forum}/network
+    name: ${COMPOSE_PROJECT_NAME}-network
 
 services:
   db:
-    image: mysql:8.0.30
-    container_name: ${COMPOSE_PROJECT_NAME:-nikolai_forum}.db
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}-db
     environment:
-      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}"
-      - "MYSQL_DATABASE=${DB_NAME:-nikolai_forum}"
-      - "MYSQL_USER=${DB_USER:-nikolai}"
-      - "MYSQL_PASSWORD=${DB_PASSWORD:-nikolai}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_DATABASE=${DB_NAME}"
+      - "MYSQL_USER=${DB_USER}"
+      - "MYSQL_PASSWORD=${DB_PASSWORD}"
     networks:
       - inner-network
     ports:
       - "${DB_PORT_OUTER:-3306}:3306"
     volumes:
       - "./db/init:/docker-entrypoint-initdb.d"
-      - "${LOCAL_DATABASE_DIR:-./db/data}:/var/lib/mysql"
+      - "${LOCAL_DATABASE_DIR}:/var/lib/mysql"
 
-  php_apache:
+  php-apache:
     build:
-      context: ./php_apache
+      context: php-apache
       dockerfile: Dockerfile
       args:
-        - ENVIRONMENT=${ENVIRONMENT:-dev}
-    image: ${COMPOSE_PROJECT_NAME:-nikolai_forum}.php_apache:latest-${ENVIRONMENT:-dev}
-    container_name: ${COMPOSE_PROJECT_NAME:-nikolai_forum}.php_apache
+        - PHP_VERSION
+        - XDEBUG_VERSION
+        - ENVIRONMENT
+    image: ${COMPOSE_PROJECT_NAME}-php-apache:latest-${ENVIRONMENT}
+    container_name: ${COMPOSE_PROJECT_NAME}-php-apache
     networks:
       - inner-network
     depends_on:
       - db
     ports:
-      - "${HTTP_PORT:-80}:80"
+      - "${HTTP_PORT}:80"
     env_file:
       - .env
     volumes:
-      - "./php_apache/public:/var/www/html"
-    working_dir: "/var/www/html"
+      - "./php-apache/public:/var/www/html"

@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
       args:
         - MYSQL_VERSION
-    image: ${COMPOSE_PROJECT_NAME}-mysql:latest-${ENVIRONMENT}
+    image: ${COMPOSE_PROJECT_NAME}-mysql:latest
     container_name: ${COMPOSE_PROJECT_NAME}-db
     environment:
       - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
@@ -31,8 +31,8 @@ services:
       args:
         - PHP_VERSION
         - XDEBUG_VERSION
-        - ENVIRONMENT
-    image: ${COMPOSE_PROJECT_NAME}-php-apache:latest-${ENVIRONMENT}
+        - ENVIRONMENT=dev
+    image: ${COMPOSE_PROJECT_NAME}-php-apache:latest-dev
     container_name: ${COMPOSE_PROJECT_NAME}-php-apache
     networks:
       - inner-network

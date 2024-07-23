@@ -27,7 +27,7 @@ RUN docker-php-ext-enable opcache
 ARG XDEBUG_VERSION
 
 # Скачивание и включение XDebug (только на окружении разработки, так как на других debug не нужен)
-RUN if [ "${ENVIRONMENT}" = "dev" ]; then \
+RUN if [ "${ENVIRONMENT}" = "localhost" ]; then \
         pecl install "xdebug-${XDEBUG_VERSION}" && \
         docker-php-ext-enable xdebug; \
     else \

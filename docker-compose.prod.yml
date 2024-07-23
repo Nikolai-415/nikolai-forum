@@ -1,47 +1,6 @@
-networks:
-  inner-network:
-    name: ${COMPOSE_PROJECT_NAME}-network
-
 services:
   db:
-    build:
-      context: db
-      dockerfile: Dockerfile
-      args:
-        - MYSQL_VERSION
-    image: ${COMPOSE_PROJECT_NAME}-mysql:latest
-    container_name: ${COMPOSE_PROJECT_NAME}-db
-    environment:
-      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
-      - "MYSQL_DATABASE=${DB_NAME}"
-      - "MYSQL_USER=${DB_USER}"
-      - "MYSQL_PASSWORD=${DB_PASSWORD}"
-    networks:
-      - inner-network
-    ports:
-      - "${DB_PORT_OUTER}:3306"
-    volumes:
-      - "${LOCAL_DATABASE_DIR}:/var/lib/mysql"
     restart: always
 
   php-apache:
-    build:
-      context: php-apache
-      dockerfile: Dockerfile
-      args:
-        - PHP_VERSION
-        - XDEBUG_VERSION
-        - ENVIRONMENT=prod
-    image: ${COMPOSE_PROJECT_NAME}-php-apache:latest-prod
-    container_name: ${COMPOSE_PROJECT_NAME}-php-apache
-    networks:
-      - inner-network
-    depends_on:
-      - db
-    ports:
-      - "${HTTP_PORT}:80"
-    env_file:
-      - .env
-    volumes:
-      - "./php-apache/public:/var/www/html"
     restart: always

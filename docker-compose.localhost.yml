@@ -1,0 +1,8 @@
+services:
+  db:
+    volumes:
+      - "./db/init:/docker-entrypoint-initdb.d"
+
+  php-apache:
+    volumes:
+      - "./php-apache/public:/var/www/html"

@@ -21,7 +21,6 @@ services:
     ports:
       - "${DB_PORT_OUTER}:3306"
     volumes:
-      - "./db/init:/docker-entrypoint-initdb.d"
       - "${LOCAL_DATABASE_DIR}:/var/lib/mysql"
 
   php-apache:
@@ -31,8 +30,8 @@ services:
       args:
         - PHP_VERSION
         - XDEBUG_VERSION
-        - ENVIRONMENT=dev
-    image: ${COMPOSE_PROJECT_NAME}-php-apache:latest-dev
+        - ENVIRONMENT
+    image: ${COMPOSE_PROJECT_NAME}-php-apache:latest-${ENVIRONMENT}
     container_name: ${COMPOSE_PROJECT_NAME}-php-apache
     networks:
       - inner-network
@@ -42,5 +41,3 @@ services:
       - "${HTTP_PORT}:80"
     env_file:
       - .env
-    volumes:
-      - "./php-apache/public:/var/www/html"
